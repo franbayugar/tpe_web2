@@ -1,0 +1,115 @@
+.contenedor {
+    position: absolute;
+    z-index: 1;
+    margin: 50px;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+}
+
+#navbar {
+    z-index: 1;
+}
+
+.card-border {
+    border: solid 10px white;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all ease-out 0.2s;
+}
+
+.card-border:hover {
+    transform: scale(1.05);
+}
+
+.travel-card {
+    border: 1px solid lightblue;
+}
+
+#footer {
+    background: url(../img/bg-04.png);
+    background-color: rgb(224, 144, 24);
+    background-size: 50px 50px;
+}
+
+
+/* FORM LOGIN */
+.login-form {
+    padding: 5%;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.login-form form {
+    border: 1px solid lightblue;
+    padding: 30px;
+    padding-bottom: 50px;
+}
+
+.form-control {
+    margin-bottom: 15px;
+}
+
+/*TABLA ADMIN */
+.section-table {
+    margin: 10px;
+}
+
+.section-table table {
+    border: 1px solid white;
+}
+
+.section-table table thead {
+    font-weight: bold;
+}
+
+@media only screen and (min-width: 600px) {
+    .contenedor {
+        top: 1%;
+        margin: 25%;
+        padding: 8px;
+
+    }
+
+}
+
+@media only screen and (min-width: 900px) {
+    .contenedor {
+        margin-left: 30%;
+        padding: 35px;
+    }
+
+    .travel-card {
+        max-width: 330px;
+    }
+
+    /* FORM LOGIN */
+    .login-form {
+        padding: 5%;
+        padding-left: 35%;
+        padding-right: 35%;
+    }
+
+    .login-form form {
+        border: 1px solid lightblue;
+        padding: 30px;
+        padding-bottom: 50px;
+    }
+
+    .form-control {
+        margin-bottom: 15px;
+    }
+
+    /*TABLA ADMIN */
+    .section-table {
+        margin: 70px;
+    }
+
+    .section-table table {
+        border: 1px solid white;
+    }
+
+    .section-table table thead {
+        font-weight: bold;
+    }
+}
