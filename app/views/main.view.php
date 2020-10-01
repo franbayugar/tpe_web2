@@ -1,13 +1,43 @@
 <?php
 require_once ('libs/smarty/libs/Smarty.class.php');
 
-class HomeView{
-    function showHome($destination){
+class MainView{
+    function showHome($destination, $category){
+        $smarty = new Smarty();
+
+        $smarty->assign('destination', $destination);
+        $smarty->assign('category', $category);
+
+
+        $smarty->display('templates/homePage.tpl');
+    }
+
+    function showAbout(){
+        $smarty = new Smarty();
+
+        $smarty->display('templates/about.tpl');
+    }
+
+    function filter($destination, $category, $id){
+        $smarty = new Smarty();
+
+        $smarty->assign('destination', $destination);
+        $smarty->assign('category', $category);
+
+        $smarty->assign('filterId', $id);
+
+
+        $smarty->display('templates/homeFilter.tpl');
+    }
+
+    function showMore($destination, $id){
         $smarty = new Smarty();
 
         $smarty->assign('destination', $destination);
 
-        $smarty->display('templates/homePage.tpl');
+        $smarty->assign('itemId', $id);
+
+        $smarty->display('templates/showDetail.tpl');
     }
 /*
     function showHome($destination){

@@ -23,7 +23,7 @@ class TravelModel {
     function getAll() {
 
         // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
-        $query = $this->db->prepare('SELECT * FROM destinos');
+        $query = $this->db->prepare('SELECT *, des.id as id_destino FROM `destinos` des INNER JOIN `categoria` ON `id_categoria` = categoria.id;');
         $query->execute();
 
         // 3. Obtengo la respuesta con un fetchAll (porque son muchos)
@@ -33,11 +33,11 @@ class TravelModel {
     }
 
     
-    function insert($destino, $descripcion, $precio, $fecha, $transporte) {
+    function insert($destino, $descripcion, $precio, $fecha, $categoria) {
 
         // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
-        $query = $this->db->prepare('INSERT INTO destinos (destino, descripcion, precio, fecha, id_transporte) VALUES (?,?,?,?,?)');
-        $query->execute([$destino, $descripcion, $precio, $fecha, $transporte]);
+        $query = $this->db->prepare('INSERT INTO destinos (destino, descripcion, precio, fecha, id_categoria) VALUES (?,?,?,?,?)');
+        $query->execute([$destino, $descripcion, $precio, $fecha, $categoria]);
 
 
         // 3. Obtengo y devuelo el ID de la tarea nueva

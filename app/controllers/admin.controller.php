@@ -6,11 +6,12 @@ include_once 'app/models/travel.model.php';
 class AdminController {
 
     private $view;
-    private $model;
+    private $travelModel;
+    private $transportModel;
 
     function __construct() {
         $this->view = new AdminView();
-        $this->model = new TravelModel();
+        $this->travelModel = new TravelModel();
     }
 
     function showLogin() {
@@ -31,13 +32,11 @@ class AdminController {
         }
         else{
             header("HTTP/1.0 403 Forbidden");
-
         }
-        
     }
 
     function showAdmin(){
-        $destination = $this->model->getAll();
+        $destination = $this->travelModel->getAll();
         $this->view->showAdmin($destination);
 
     }
@@ -56,14 +55,14 @@ class AdminController {
         }
 
         // inserto la tarea en la DB
-        $id = $this->model->insert($destino, $descripcion, $precio, $fecha, $transporte);
+        $id = $this->travelModel->insert($destino, $descripcion, $precio, $fecha, $transporte);
 
         // redirigimos al listado
         header("Location: " . BASE_URL); 
     }
 
     function deleteDestination($id) {
-        $this->model->remove($id);
+        $this->travelModel->remove($id);
         header("Location: " . BASE_URL); 
     }
 

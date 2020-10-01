@@ -11,6 +11,20 @@
     z-index: 1;
 }
 
+
+.product {
+    background-color: rgba(184, 175, 165, 0.6);
+    width: 100%;
+}
+
+.product p {
+    color: black;
+    font-size: large;
+    padding-top: 15px;
+    padding-left: 10px;
+    font-weight: bold;
+}
+
 .card-border {
     border: solid 10px white;
     border-radius: 20px;
@@ -27,7 +41,6 @@
 }
 
 #footer {
-    background: url(../img/bg-04.png);
     background-color: rgb(224, 144, 24);
     background-size: 50px 50px;
 }
