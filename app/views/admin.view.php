@@ -8,10 +8,12 @@ class AdminView{
         $smarty->display('templates/adminlogin.tpl');
     }
 
-    function showAdmin($destination){
+    function showAdmin($destination, $category){
         $smarty = new Smarty();
 
         $smarty->assign('destination', $destination);
+        $smarty->assign('category', $category);
+
 
         $smarty->display('templates/adminPage.tpl');
     }

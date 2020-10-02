@@ -13,7 +13,7 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a class="nav-link" href="inicio">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="nosotros">Nosotros</a></li>
-                    <li class="nav-item"><a class="nav-link" href="adminlogin">Administrador</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login">Administrador</a></li>
                 </ul>
             </div>
         </div>

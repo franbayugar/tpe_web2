@@ -23,7 +23,7 @@ class TravelModel {
     function getAll() {
 
         // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
-        $query = $this->db->prepare('SELECT *, des.id as id_destino FROM `destinos` des INNER JOIN `categoria` ON `id_categoria` = categoria.id;');
+        $query = $this->db->prepare('SELECT *, des.id as id_destino FROM `destino` des INNER JOIN `categoria` ON `id_categoria` = categoria.id;');
         $query->execute();
 
         // 3. Obtengo la respuesta con un fetchAll (porque son muchos)
@@ -32,11 +32,33 @@ class TravelModel {
         return $destination;
     }
 
+    function getOne($id) {
+
+        // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
+        $query = $this->db->prepare('SELECT *, destino.id as id_destino FROM `destino` INNER JOIN `categoria` ON `id_categoria` = categoria.id WHERE destino.id = ?');
+        $query->execute([$id]); 
+        // 3. Obtengo la respuesta con un fetch (porque son muchos)
+        $destination = $query->fetch(PDO::FETCH_OBJ); //tarea
+
+        return $destination;
+    }
+
+    function getByCategory($id) {
+
+        // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
+        $query = $this->db->prepare('SELECT *, destino.id as id_destino FROM `destino` INNER JOIN `categoria` ON `id_categoria` = categoria.id WHERE id_categoria = ?');
+        $query->execute([$id]); 
+        // 3. Obtengo la respuesta con un fetch (porque son muchos)
+        $destination = $query->fetchAll(PDO::FETCH_OBJ); //tarea
+
+        return $destination;
+    }
+
     
     function insert($destino, $descripcion, $precio, $fecha, $categoria) {
 
         // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
-        $query = $this->db->prepare('INSERT INTO destinos (destino, descripcion, precio, fecha, id_categoria) VALUES (?,?,?,?,?)');
+        $query = $this->db->prepare('INSERT INTO destino (destino, descripcion, precio, fecha, id_categoria) VALUES (?,?,?,?,?)');
         $query->execute([$destino, $descripcion, $precio, $fecha, $categoria]);
 
 
@@ -46,7 +68,7 @@ class TravelModel {
 
     function remove($id) {  
   
-        $query = $this->db->prepare('DELETE FROM destinos WHERE id = ?');
+        $query = $this->db->prepare('DELETE FROM destino WHERE id = ?');
         $query->execute([$id]);
   }
   

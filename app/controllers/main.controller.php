@@ -35,16 +35,30 @@ class MainController {
     
     function filter($id) {
         // actualizo la vista
-        $destination = $this->travelModel->getAll();
-        $category = $this->categoryModel->getAll();
-        
-        $this->view->filter($destination, $category, $id);
-     }
+        if($id != 0){
+         $destination = $this->travelModel->getByCategory($id); 
+            if($destination !=null){       
+               $this->view->filter($destination, $id);
+            }
+            else{
+               echo 'algo salio mal';
+            }
+         }
+        else{
+         $destination = $this->travelModel->getAll();        
+         $this->view->filter($destination, $id);
+        }
+      }
 
      function showMore($id){
-        $destination = $this->travelModel->getAll();
-        $this->view->showMore($destination, $id);
-
+        $destination = $this->travelModel->getOne($id);
+        if($destination != null){
+        $this->view->showMore($destination);
+        }
+        else{
+           echo 'error';
+           die();
+        }
      }
 
 

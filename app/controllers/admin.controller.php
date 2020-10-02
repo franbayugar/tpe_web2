@@ -2,16 +2,23 @@
 
 include_once 'app/views/admin.view.php';
 include_once 'app/models/travel.model.php';
+include_once 'app/models/category.model.php';
+include_once 'app/models/user.model.php';
+
 
 class AdminController {
 
     private $view;
     private $travelModel;
-    private $transportModel;
+    private $categoryModel;
+    private $userModel;
 
     function __construct() {
         $this->view = new AdminView();
         $this->travelModel = new TravelModel();
+        $this->categoryModel = new CategoryModel();
+        $this->userModel = new UserModel();
+
     }
 
     function showLogin() {
@@ -19,12 +26,15 @@ class AdminController {
        $this->view->showLogin();
     }
 
-    function checkLogin(){
+    function loginUser(){
         if (!empty($_POST['user']) && !empty($_POST['password'])) {
-            $user = $_POST['user'];
+            $email = $_POST['user'];
             $password = $_POST['password'];
-            if($user == 'admin' && $password == 'admin'){
-                $this->showAdmin();
+            $user = $this->userModel->getUserByEmail($email);
+
+            if(password_verify($password, $user->password)){
+                header("Location: " . BASE_URL . 'administrador'); 
+
             }
             else{
                 echo 'usuario o pas inc';
@@ -37,7 +47,9 @@ class AdminController {
 
     function showAdmin(){
         $destination = $this->travelModel->getAll();
-        $this->view->showAdmin($destination);
+        $category = $this->categoryModel->getAll();
+
+        $this->view->showAdmin($destination, $category);
 
     }
 

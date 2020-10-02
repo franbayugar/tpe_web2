@@ -30,13 +30,17 @@ switch ($params[0]) {
         $id = $params[1];
         $controller->filter($id);
         break;
-    case 'adminlogin':
+    case 'login':
         $controller = new AdminController();
         $controller->showLogin();
         break;
-    case 'admin':
+    case 'verify':
         $controller = new AdminController();
-        $controller->checkLogin();
+        $controller->loginUser();
+        break;
+    case 'administrador':
+        $controller = new AdminController();
+        $controller->showAdmin();
         break;
     case 'insertar':
         $controller = new AdminController();
@@ -54,8 +58,8 @@ switch ($params[0]) {
         $controller->showMore($id);
         }
         else{
-            echo('error');
-        }    
+            echo 'error';
+        } 
         break; 
     default:
         header("HTTP/1.0 404 Not Found");

@@ -11,7 +11,7 @@
 <body>
 {include 'header.tpl'}
 <div class="login-form">
-        <form class="form-signin" action="admin" method="POST">
+        <form class="form-signin" action="verify" method="POST">
         <h1 class="h3 mb-3 font-weight-normal">Ingrese sus datos:</h1>
         <label for="inputEmail" class="sr-only" >Usuario</label>
         <input type="text" class="form-control" name="user" placeholder="Usuario" required>

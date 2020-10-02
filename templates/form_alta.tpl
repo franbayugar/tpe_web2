@@ -11,12 +11,11 @@
 
         <div class="col-3">
             <div class="form-group">
-                <label>Transporte</label>
+                <label>Paquete</label>
                 <select name="transporte" class="form-control" required>
-                    <option value="1">Avión</option>
-                    <option value="2">Colectivo</option>
-                    <option value="3">Tren</option>
-                    <option value="4">Combi</option>
+                {foreach from=$category item=package}
+                    <option value="{$package->id}">{$package->paquete}</option>
+                {/foreach}
                 </select>
             </div>
         </div>

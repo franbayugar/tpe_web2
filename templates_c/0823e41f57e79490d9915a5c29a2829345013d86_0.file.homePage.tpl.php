@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-10-01 17:41:23
+/* Smarty version 3.1.34-dev-7, created on 2020-10-02 02:57:10
   from 'C:\xampp\htdocs\proyects\web 2\tp_especial\tpe_web2\templates\homePage.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f75f8a303b1a4_18822375',
+  'unifunc' => 'content_5f767ae6e2f633_04199383',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '0823e41f57e79490d9915a5c29a2829345013d86' => 
     array (
       0 => 'C:\\xampp\\htdocs\\proyects\\web 2\\tp_especial\\tpe_web2\\templates\\homePage.tpl',
-      1 => 1601566861,
+      1 => 1601600228,
       2 => 'file',
     ),
   ),
@@ -20,10 +20,11 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
     'file:header.tpl' => 1,
     'file:carousel.tpl' => 1,
+    'file:homeFilter.tpl' => 1,
     'file:footer.tpl' => 1,
   ),
 ),false)) {
-function content_5f75f8a303b1a4_18822375 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f767ae6e2f633_04199383 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,7 +54,7 @@ $_smarty_tpl->tpl_vars['type']->do_else = false;
 ?>
         <div class="col-sm-3">
             <a class="btn-filter btn btn-lg rounded-pill btn-warning w-100 p-2 m-1 shadow-sm font-weight-bold" id="<?php echo $_smarty_tpl->tpl_vars['type']->value->id;?>
-"><?php echo $_smarty_tpl->tpl_vars['type']->value->producto;?>
+"><?php echo $_smarty_tpl->tpl_vars['type']->value->paquete;?>
 </a>
         </div>
         <?php
@@ -62,34 +63,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     </div>
     <div id="travel-container" class="row">
             <h4 class="text-center pb-5 pt-5 h1">Observá todos los paquetes que tenemos para vos:</h4>
-    <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['destination']->value, 'place');
-$_smarty_tpl->tpl_vars['place']->do_else = true;
-if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['place']->value) {
-$_smarty_tpl->tpl_vars['place']->do_else = false;
+<?php $_smarty_tpl->_subTemplateRender('file:homeFilter.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
-            <div class="col-sm-4">
-                    <div class="travel-card card w-100 card-border mb-5">
-                        <img src="img/card01.jpg" class="card-img-top" alt="...">
-                        <div class='product card-text'>
-                        <p><?php echo $_smarty_tpl->tpl_vars['place']->value->aliashome;?>
-</p>
-                        </div>                        
-                        <div class="card-body">
-                            <h3><?php echo $_smarty_tpl->tpl_vars['place']->value->destino;?>
-</h3> 
-                            <p class='card-text'><?php echo $_smarty_tpl->tpl_vars['place']->value->descripcion;?>
-</p>
-                            <p class='card-text'>Precio: $<?php echo $_smarty_tpl->tpl_vars['place']->value->precio;?>
-</p>
-                            <a class='btn btn-danger btn-sm' href='verdetalle/<?php echo $_smarty_tpl->tpl_vars['place']->value->id_destino;?>
-'>Ver detalles</a>
-                        </div>
-                    </div>
-                </div>
-        <?php
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     </div>
     </div>
 </section>

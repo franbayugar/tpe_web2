@@ -12,29 +12,22 @@
 <body>
 {include 'header.tpl'}
 <section class="container-md p-5">
-    {foreach from=$destination item=place}
-    {if $itemId eq $place->id_destino}
             <div class="col-sm-4">
                     <div class="travel-card card w-100 card-border mb-5">
                         <img src="img/card01.jpg" class="card-img-top" alt="...">
                         <div class='product card-text'>
-                        <p>{$place->aliashome}</p>
+                        <p>{$destination->aliaspaquete}</p>
                         </div>
                         <div class="card-body">
-                            <h3>{$place->destino}</h3> 
-                            <p class='card-text'>{$place->descripcion}</p>
-                            <p class='card-text'>Precio: ${$place->precio}</p>
-                            <a class='btn btn-danger btn-sm' href='ver-detalle/{$place->id}'>Ver detalles</a>
+                            <h3>{$destination->destino}</h3> 
+                            <p class='card-text'>{$destination->descripcion}</p>
+                            <p class='card-text'>Precio: ${$destination->precio}</p>
                         </div>
                     </div>
                 </div>
-            {else}
-              <p>Algo no anda bien</p>
-                          {/if}
-
-        {/foreach}
     </div>
 </section>
+
 {include 'footer.tpl'}
 <script src="main.js"></script>
 

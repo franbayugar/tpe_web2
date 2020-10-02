@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-09-27 01:07:58
+/* Smarty version 3.1.34-dev-7, created on 2020-10-01 23:46:42
   from 'C:\xampp\htdocs\proyects\web 2\tp_especial\tpe_web2\templates\adminlogin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f6fc9ce38ba24_70061427',
+  'unifunc' => 'content_5f764e420dd0c1_15136031',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6239778b7ca993eb6fa41b2b17b94074bef43486' => 
     array (
       0 => 'C:\\xampp\\htdocs\\proyects\\web 2\\tp_especial\\tpe_web2\\templates\\adminlogin.tpl',
-      1 => 1601159838,
+      1 => 1601585889,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ),false)) {
-function content_5f6fc9ce38ba24_70061427 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f764e420dd0c1_15136031 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +38,7 @@ function content_5f6fc9ce38ba24_70061427 (Smarty_Internal_Template $_smarty_tpl)
 <?php $_smarty_tpl->_subTemplateRender('file:header.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 <div class="login-form">
-        <form class="form-signin" action="admin" method="POST">
+        <form class="form-signin" action="verify" method="POST">
         <h1 class="h3 mb-3 font-weight-normal">Ingrese sus datos:</h1>
         <label for="inputEmail" class="sr-only" >Usuario</label>
         <input type="text" class="form-control" name="user" placeholder="Usuario" required>

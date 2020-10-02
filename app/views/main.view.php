@@ -7,6 +7,7 @@ class MainView{
 
         $smarty->assign('destination', $destination);
         $smarty->assign('category', $category);
+        $smarty->assign('checkId', '0');
 
 
         $smarty->display('templates/homePage.tpl');
@@ -18,24 +19,20 @@ class MainView{
         $smarty->display('templates/about.tpl');
     }
 
-    function filter($destination, $category, $id){
+    function filter($destination, $checkId){
         $smarty = new Smarty();
 
         $smarty->assign('destination', $destination);
-        $smarty->assign('category', $category);
 
-        $smarty->assign('filterId', $id);
-
+        $smarty->assign('checkId', $checkId);
 
         $smarty->display('templates/homeFilter.tpl');
     }
 
-    function showMore($destination, $id){
+    function showMore($destination){
         $smarty = new Smarty();
 
         $smarty->assign('destination', $destination);
-
-        $smarty->assign('itemId', $id);
 
         $smarty->display('templates/showDetail.tpl');
     }
