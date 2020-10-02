@@ -54,28 +54,28 @@ class AdminController {
     }
 
     function addDestination() {
-        $destino = $_POST['destino'];
-        $descripcion = $_POST['descripcion'];
-        $precio = $_POST['precio'];
-        $fecha = $_POST['fecha'];
-        $transporte = $_POST['transporte'];
+        $place = $_POST['place'];
+        $shortdescription = $_POST['shortdescription'];
+        $description = $_POST['description'];
+        $value = $_POST['value'];
+        $category = $_POST['category'];
 
         // verifico campos obligatorios
-        if (empty($destino) || empty($descripcion) || empty($precio) || empty($fecha)|| empty($transporte))  {
+        if (empty($place) || empty($shortdescription) || empty($description) || empty($value) || empty($category))  {
             $this->view->showError('Faltan datos obligatorios');
             die();
         }
 
         // inserto la tarea en la DB
-        $id = $this->travelModel->insert($destino, $descripcion, $precio, $fecha, $transporte);
+        $id = $this->travelModel->insert($place, $shortdescription, $description, $value, $category);
 
         // redirigimos al listado
-        header("Location: " . BASE_URL); 
+        header("Location: " . BASE_URL . '/administrador'); 
     }
 
     function deleteDestination($id) {
         $this->travelModel->remove($id);
-        header("Location: " . BASE_URL); 
+        header("Location: " . BASE_URL . '/administrador'); 
     }
 
 

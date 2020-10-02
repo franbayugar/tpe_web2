@@ -16,9 +16,9 @@
         <thead>
             <tr>
                 <td>Destino</td>
-                <td>Descripcion</td>
+                <td>Descripcion breve</td>
                 <td>Precio</td>
-                <td>Fecha de salida</td>
+                <td>Categoría</td>
                 <td></td>
             </tr>
         </thead>
@@ -26,10 +26,11 @@
             {foreach from=$destination item=place}
                 <tr>
                     <td>{$place->destino}</td>
-                    <td>{$place->descripcion}</td>
+                    <td>{$place->descripcion_breve}</td>
                     <td>${$place->precio}</td>
-                    <td>{$place->fecha}</td>
-                    <td><a class='btn btn-danger btn-sm' href='eliminar/{$place->id}'>Eliminar</a></td>
+                    <td>{$place->paquete}</td>
+                    <td><a class='btn btn-warning btn-sm' href='editar/{$place->id_destino}'>Editar</a>
+                    <a class='btn btn-danger btn-sm' href='eliminar/{$place->id_destino}'>Eliminar</a></td>
                 </tr>
             {/foreach}
         </tbody>

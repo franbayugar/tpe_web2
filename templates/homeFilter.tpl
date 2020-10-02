@@ -7,8 +7,8 @@
                         </div>
                         <div class="card-body">
                             <h3>{$place->destino}</h3> 
-                            <p class='card-text'>{$place->descripcion}</p>
-                            <p class='card-text'>Precio: ${$place->precio}</p>
+                            <p class='card-text'>{$place->descripcion_breve}</p>
+                            <p class='card-text'>Desde ${$place->precio}</p>
                             <a class='btn btn-danger btn-sm' href='verdetalle/{$place->id_destino}'>Ver detalles</a>
                         </div>
                     </div>
@@ -17,7 +17,7 @@
         {if {$checkId} neq '0'}
         <div class="row row-cols-md-2 justify-content-md-center">
         <div class="col text-center">
-            <a class="btn-back btn btn-lg-4 rounded-pill btn-danger w-100 p-2 m-3 shadow-sm font-weight-bold" id='0'>Ver todos los productos</a>
+            <a class="btn-back btn btn-lg-4 rounded-pill btn-danger w-100 p-2 m-3 shadow-sm font-weight-bold" id='0'>Ver todos los paquetes</a>
         </div>
                 {/if}
 

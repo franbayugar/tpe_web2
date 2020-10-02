@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-09-28 23:45:50
+/* Smarty version 3.1.34-dev-7, created on 2020-10-02 19:10:45
   from 'C:\xampp\htdocs\proyects\web 2\tp_especial\tpe_web2\templates\adminPage.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f72598e8aeb70_76473478',
+  'unifunc' => 'content_5f775f1561ab89_38417409',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1b06526f32939658eb1aa8a1e3adadbcc65f1efe' => 
     array (
       0 => 'C:\\xampp\\htdocs\\proyects\\web 2\\tp_especial\\tpe_web2\\templates\\adminPage.tpl',
-      1 => 1601160452,
+      1 => 1601658526,
       2 => 'file',
     ),
   ),
@@ -23,7 +23,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ),false)) {
-function content_5f72598e8aeb70_76473478 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f775f1561ab89_38417409 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,9 +44,9 @@ $_smarty_tpl->_subTemplateRender('file:form_alta.tpl', $_smarty_tpl->cache_id, $
         <thead>
             <tr>
                 <td>Destino</td>
-                <td>Descripcion</td>
+                <td>Descripcion breve</td>
                 <td>Precio</td>
-                <td>Fecha de salida</td>
+                <td>Categoría</td>
                 <td></td>
             </tr>
         </thead>
@@ -60,13 +60,15 @@ $_smarty_tpl->tpl_vars['place']->do_else = false;
                 <tr>
                     <td><?php echo $_smarty_tpl->tpl_vars['place']->value->destino;?>
 </td>
-                    <td><?php echo $_smarty_tpl->tpl_vars['place']->value->descripcion;?>
+                    <td><?php echo $_smarty_tpl->tpl_vars['place']->value->descripcion_breve;?>
 </td>
                     <td>$<?php echo $_smarty_tpl->tpl_vars['place']->value->precio;?>
 </td>
-                    <td><?php echo $_smarty_tpl->tpl_vars['place']->value->fecha;?>
+                    <td><?php echo $_smarty_tpl->tpl_vars['place']->value->paquete;?>
 </td>
-                    <td><a class='btn btn-danger btn-sm' href='eliminar/<?php echo $_smarty_tpl->tpl_vars['place']->value->id;?>
+                    <td><a class='btn btn-warning btn-sm' href='editar/<?php echo $_smarty_tpl->tpl_vars['place']->value->id_destino;?>
+'>Editar</a>
+                    <a class='btn btn-danger btn-sm' href='eliminar/<?php echo $_smarty_tpl->tpl_vars['place']->value->id_destino;?>
 '>Eliminar</a></td>
                 </tr>
             <?php

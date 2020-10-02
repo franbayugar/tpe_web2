@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let html = await response.text();
         setTimeout(() => {
             container.innerHTML = html;
-        }, 1000);
+        }, 500);
         botonBack();
     }
 
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
             btnBack.addEventListener('click', () => {
                 call(btnBack.getAttribute("id"));
             });
-        }, 1500);
+        }, 500);
 
     }
 
