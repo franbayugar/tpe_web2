@@ -28,4 +28,20 @@ private $db;
 
         return $category;
     }
+    function insert($package, $aliaspackage) {
+
+        // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
+        $query = $this->db->prepare('INSERT INTO categoria (paquete, aliaspaquete) VALUES (?,?)');
+        $query->execute([$package, $aliaspackage]);
+
+
+        // 3. Obtengo y devuelo el ID de la tarea nueva
+        return $this->db->lastInsertId();
+    }
+
+    function remove($id) {  
+  
+        $query = $this->db->prepare('DELETE FROM categoria WHERE id = ?');
+        $query->execute([$id]);
+    }
 }

@@ -20,7 +20,7 @@
                     <td>${$place->precio}</td>
                     <td>{$place->paquete}</td>
                     <td><a class='btn-edit btn btn-warning btn-sm' id='{$place->id_destino}'>Editar</a>
-                    <a class='btn btn-danger btn-sm' href='eliminar/{$place->id_destino}'>Eliminar</a></td>
+                    <a class='btn btn-danger btn-sm' href='eliminardestino/{$place->id_destino}'>Eliminar</a></td>
                 </tr>
             {/foreach}
         </tbody>

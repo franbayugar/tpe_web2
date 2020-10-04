@@ -44,9 +44,14 @@ switch ($params[0]) {
         break;
     case 'insertar':
         $controller = new AdminController();
-        $controller->addDestination();
+        $controller->addToDataBase();
         break;
-    case 'eliminar': // eliminar/:ID
+    case 'eliminarcategoria': // eliminar/:ID
+        $controller = new AdminController();
+        $id = $params[1];
+        $controller->deleteCategory($id);
+        break;  
+    case 'eliminardestino': // eliminar/:ID
         $controller = new AdminController();
         $id = $params[1];
         $controller->deleteDestination($id);
@@ -72,10 +77,11 @@ switch ($params[0]) {
         break; 
     case'destinationmanage':
         $controller = new AdminController();
-        $controller->showDestinationManage();
+        $controller->destinationManage();
         break;
     case'categorymanage':
         $controller = new AdminController();
+        $controller->categoryManage();
         break;
     default:
         header("HTTP/1.0 404 Not Found");

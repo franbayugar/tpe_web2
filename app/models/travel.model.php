@@ -60,10 +60,7 @@ class TravelModel {
         // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
         $query = $this->db->prepare('INSERT INTO destino (destino, descripcion_breve, descripcion, precio, id_categoria) VALUES (?,?,?,?,?)');
         $query->execute([$place, $shortdescription, $description, $value, $category]);
-
-
         // 3. Obtengo y devuelo el ID de la tarea nueva
-        return $this->db->lastInsertId();
     }
 
     function remove($id) {  

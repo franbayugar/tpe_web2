@@ -6,13 +6,17 @@
   <p class="lead">Seleccione lo que desea editar.</p>
   <hr class="my-4">
    <div class="row">
-    <div class="col-sm container-admincard ">
-      <img src="img/d1.jpg" alt="Snow">
+    <div class="col container-admincard ">
+      <img src="img/d1.jpg" alt="destination">
 <a type="button" href="destinationmanage" class="btn-admin btn btn-lg btn-outline-light p-3">Administrar destinos</a>
     </div>
-    <div class="col-sm container-admincard">
-      <img src="img/d2.jpg" alt="Snow">
-<button type="button" href="categorymanage" class="btn-admin btn btn-lg btn-outline-light p-3">Administrar categorías</button>
+            </div>
+
+       <div class="row">
+
+    <div class="col container-admincard">
+      <img src="img/d2.jpg" alt="category">
+<a type="button" href="categorymanage" class="btn-admin btn btn-lg btn-outline-light p-3">Administrar categorías</a>
         </div>
     </div>
 </div>

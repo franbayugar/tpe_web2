@@ -35,4 +35,11 @@ class AdminView{
 
         $smarty->display('templates/adminDestination.tpl');
     }
+
+    function showCategoryManage($category){
+        $smarty = new Smarty();
+        $smarty->assign('category', $category);
+
+        $smarty->display('templates/adminCategory.tpl');
+    }
 }

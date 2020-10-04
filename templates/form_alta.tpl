@@ -2,14 +2,15 @@
 <section class="container">
 <form action="insertar" method="POST" class="my-4">
     <div class="row">
-        <div class="col-9">
+        <div class="col-8">
+            <input type="hidden" name="idmanage" value='1'>
             <div class="form-group">
                 <label>Destino</label>
                 <input name="place" type="text" class="form-control" required>
             </div>
         </div>
 
-        <div class="col-3">
+        <div class="col-4">
             <div class="form-group">
                 <label>Paquete</label>
                 <select name="category" class="form-control" required>

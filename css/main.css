@@ -92,6 +92,8 @@
 .container-admincard {
     position: relative;
     width: 50%;
+    margin-top: 5px;
+    max-height: 350px;
 }
 
 /* Make the image responsive */
@@ -105,7 +107,7 @@
 /* Style the button and place it in the middle of the container/image */
 .container-admincard .btn-admin {
     position: absolute;
-    top: 15%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);

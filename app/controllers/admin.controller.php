@@ -50,6 +50,15 @@ class AdminController {
 
     }
 
+    function addToDataBase(){
+        if($_POST['idmanage'] == '1'){
+            $this->addDestination();
+        }
+        if($_POST['idmanage'] == '2'){
+            $this->addCategory();
+        }
+    }
+
     function addDestination() {
         $place = $_POST['place'];
         $shortdescription = $_POST['shortdescription'];
@@ -67,12 +76,35 @@ class AdminController {
         $id = $this->travelModel->insert($place, $shortdescription, $description, $value, $category);
 
         // redirigimos al listado
-        header("Location: " . BASE_URL . '/administrador'); 
+        header("Location: " . BASE_URL . 'destinationmanage'); 
+    }
+
+    function addCategory() {
+        $package = $_POST['package'];
+        $aliaspackage = $_POST['aliaspackage'];
+ 
+
+        // verifico campos obligatorios
+        if (empty($package) || empty($aliaspackage))  {
+            $this->view->showError('Faltan datos obligatorios');
+            die();
+        }
+
+        // inserto la tarea en la DB
+        $this->categoryModel->insert($package, $aliaspackage);
+
+        // redirigimos al listado
+        header("Location: " . BASE_URL . 'categorymanage'); 
     }
 
     function deleteDestination($id) {
         $this->travelModel->remove($id);
-        header("Location: " . BASE_URL . '/administrador'); 
+        header("Location: " . BASE_URL . 'destinationmanage'); 
+    }
+
+    function deleteCategory($id) {
+        $this->categoryModel->remove($id);
+        header("Location: " . BASE_URL . 'categorymanage'); 
     }
 
     function showEdit($id) {
@@ -103,10 +135,15 @@ class AdminController {
         header("Location: " . BASE_URL . 'administrador'); 
     }
 
-    function showDestinationManage(){
+    function destinationManage(){
         $destination = $this->travelModel->getAll();
         $category = $this->categoryModel->getAll();
         $this->view->showDestinationManage($destination, $category);
+    }
+
+    function categoryManage(){
+        $category = $this->categoryModel->getAll();
+        $this->view->showCategoryManage($category);
     }
 
 }
