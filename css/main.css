@@ -25,6 +25,21 @@
     font-weight: bold;
 }
 
+.modal-result {
+    z-index: 3;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(82, 82, 82, 0.9);
+    top: 0;
+    left: 0;
+    overflow: auto;
+}
+
+.card-modal {
+    width: 80%;
+}
+
 .card-border {
     border: solid 10px white;
     border-radius: 20px;
@@ -47,6 +62,7 @@
 }
 
 
+
 /* FORM LOGIN */
 .login-form {
     padding: 5%;
@@ -65,16 +81,45 @@
 }
 
 /*TABLA ADMIN */
-.section-table {
-    margin: 10px;
-}
 
-.section-table table {
-    border: 1px solid white;
-}
+
 
 .section-table table thead {
     font-weight: bold;
+}
+
+/* Container needed to position the button. Adjust the width as needed */
+.container-admincard {
+    position: relative;
+    width: 50%;
+}
+
+/* Make the image responsive */
+.container-admincard img {
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    border-radius: 8px;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.container-admincard .btn-admin {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+
+}
+
+.section-table {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
 }
 
 @media only screen and (min-width: 600px) {
@@ -114,10 +159,9 @@
         margin-bottom: 15px;
     }
 
+
     /*TABLA ADMIN */
-    .section-table {
-        margin: 70px;
-    }
+
 
     .section-table table {
         border: 1px solid white;
@@ -125,5 +169,11 @@
 
     .section-table table thead {
         font-weight: bold;
+    }
+
+    .section-table {
+        padding-left: 50px;
+        padding-right: 50px;
+
     }
 }

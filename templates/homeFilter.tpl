@@ -6,9 +6,9 @@
                         <p>{$place->aliaspaquete}</p>
                         </div>
                         <div class="card-body">
-                            <h3>{$place->destino}</h3> 
-                            <p class='card-text'>{$place->descripcion_breve}</p>
-                            <p class='card-text'>Desde ${$place->precio}</p>
+                            <h4>{$place->destino|truncate:25}</h4> 
+                            <p class='card-text'>{$place->descripcion_breve|truncate:100}</p>
+                            <h5 class='card-text'>Desde ${$place->precio}</h5>
                             <a class='btn btn-danger btn-sm' href='verdetalle/{$place->id_destino}'>Ver detalles</a>
                         </div>
                     </div>
@@ -19,8 +19,7 @@
         <div class="col text-center">
             <a class="btn-back btn btn-lg-4 rounded-pill btn-danger w-100 p-2 m-3 shadow-sm font-weight-bold" id='0'>Ver todos los paquetes</a>
         </div>
-                {/if}
-
+        {/if}
     </div>    
     </div>
 

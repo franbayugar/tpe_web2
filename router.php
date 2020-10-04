@@ -50,8 +50,17 @@ switch ($params[0]) {
         $controller = new AdminController();
         $id = $params[1];
         $controller->deleteDestination($id);
-        break;    
-    case 'verdetalle': // eliminar/:ID
+        break;  
+    case 'editar': // editar/:ID
+        $controller = new AdminController();
+        $controller->updateDestination();
+        break; 
+    case 'showedit': // editar/:ID
+        $controller = new AdminController();
+        $id = $params[1];
+        $controller->showEdit($id);
+        break;      
+    case 'verdetalle': // ver detalle
         $controller = new MainController();
         if($params[1] != null){
         $id = $params[1];
@@ -61,6 +70,13 @@ switch ($params[0]) {
             echo 'error';
         } 
         break; 
+    case'destinationmanage':
+        $controller = new AdminController();
+        $controller->showDestinationManage();
+        break;
+    case'categorymanage':
+        $controller = new AdminController();
+        break;
     default:
         header("HTTP/1.0 404 Not Found");
         echo('404 Page not found');

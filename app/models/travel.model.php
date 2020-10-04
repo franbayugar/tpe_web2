@@ -70,6 +70,12 @@ class TravelModel {
   
         $query = $this->db->prepare('DELETE FROM destino WHERE id = ?');
         $query->execute([$id]);
-  }
-  
+    }
+
+    function update($place, $shortdescription, $description, $value, $category, $id) {  
+        $query = $this->db->prepare('UPDATE destino 
+        SET destino = ?, descripcion_breve = ?, descripcion = ?, precio = ?, id_categoria = ?
+        WHERE id = ?');
+        $query->execute([$place, $shortdescription, $description, $value, $category, $id]);
+    }
 }

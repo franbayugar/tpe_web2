@@ -8,12 +8,8 @@ class AdminView{
         $smarty->display('templates/adminlogin.tpl');
     }
 
-    function showAdmin($destination, $category){
+    function showAdmin(){
         $smarty = new Smarty();
-
-        $smarty->assign('destination', $destination);
-        $smarty->assign('category', $category);
-
 
         $smarty->display('templates/adminPage.tpl');
     }
@@ -22,4 +18,21 @@ class AdminView{
         echo 'Error!';
     }
 
+    function showEdit($destination, $category){
+        $smarty = new Smarty();
+
+        $smarty->assign('destination', $destination);
+
+        $smarty->assign('category', $category);
+
+        $smarty->display('templates/showEdit.tpl');
+    }
+    
+    function showDestinationManage($destination, $category){
+        $smarty = new Smarty();
+        $smarty->assign('destination', $destination);
+        $smarty->assign('category', $category);
+
+        $smarty->display('templates/adminDestination.tpl');
+    }
 }

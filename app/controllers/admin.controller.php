@@ -46,10 +46,7 @@ class AdminController {
     }
 
     function showAdmin(){
-        $destination = $this->travelModel->getAll();
-        $category = $this->categoryModel->getAll();
-
-        $this->view->showAdmin($destination, $category);
+        $this->view->showAdmin();
 
     }
 
@@ -78,5 +75,38 @@ class AdminController {
         header("Location: " . BASE_URL . '/administrador'); 
     }
 
+    function showEdit($id) {
+        $destination = $this->travelModel->getOne($id);
+        $category = $this->categoryModel->getAll();
+
+        $this->view->showEdit($destination, $category);
+    }
+
+    function updateDestination() {
+        $place = $_POST['place'];
+        $shortdescription = $_POST['shortdescription'];
+        $description = $_POST['description'];
+        $value = $_POST['value'];
+        $category = $_POST['category'];
+        $id = $_POST['id'];
+
+        // verifico campos obligatorios
+        if (empty($place) || empty($shortdescription) || empty($description) || empty($value) || empty($category)  || empty($id))  {
+            $this->view->showError('Faltan datos obligatorios');
+            die();
+        }
+
+        // inserto la tarea en la DB
+        $this->travelModel->update($place, $shortdescription, $description, $value, $category, $id);
+
+        // redirigimos al listado
+        header("Location: " . BASE_URL . 'administrador'); 
+    }
+
+    function showDestinationManage(){
+        $destination = $this->travelModel->getAll();
+        $category = $this->categoryModel->getAll();
+        $this->view->showDestinationManage($destination, $category);
+    }
 
 }
