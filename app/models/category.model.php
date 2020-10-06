@@ -11,61 +11,64 @@ class CategoryModel
         $this->db = $this->connect();
     }
 
-    /**
-     * Abre conexión a la base de datos;
-     */
+    //Abre conexión a la base de datos
     private function connect()
     {
         $db = new PDO('mysql:host=localhost;' . 'dbname=db_travelpage;charset=utf8', 'root', '');
         return $db;
     }
 
+    //obtener todas las categorias
     function getAll()
     {
-
-        // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
+        //Enviar la consulta (prepare y execute)
         $query = $this->db->prepare('SELECT * FROM categoria');
         $query->execute();
 
-        // 3. Obtengo la respuesta con un fetchAll (porque son muchos)
-        $category = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de tareas
+        //Obtengo la respuesta con un fetchAll 
+        $category = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de categorias
 
+        //retorno lo que trae
         return $category;
     }
+    //obtener una categoria
     function getOne($id)
     {
-
-        // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
+        //Enviar la consulta (prepare y execute)
         $query = $this->db->prepare('SELECT * FROM categoria WHERE id = ?');
         $query->execute([$id]);
-        // 3. Obtengo la respuesta con un fetch (porque son muchos)
-        $category = $query->fetch(PDO::FETCH_OBJ); //tarea
 
+        //Obtengo la respuesta con un fetch 
+        $category = $query->fetch(PDO::FETCH_OBJ); //categoria
+
+        //retorno lo que trae
         return $category;
     }
+    //insertar categoria a la DB
     function insert($package, $aliaspackage)
     {
-
-        // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
+        //Enviar la consulta (prepare y execute)
         $query = $this->db->prepare('INSERT INTO categoria (paquete, aliaspaquete) VALUES (?,?)');
         $query->execute([$package, $aliaspackage]);
 
-
-        // 3. Obtengo y devuelo el ID de la tarea nueva
+        // Obtengo y devuelo el ID de la tarea nueva
         return $this->db->lastInsertId();
     }
 
+    //editar categoria en la DB
     function update($package, $aliaspackage, $id)
     {
+        //Enviar la consulta (prepare y execute)
         $query = $this->db->prepare('UPDATE categoria 
         SET paquete = ?, aliaspaquete = ?
         WHERE id = ?');
         $query->execute([$package, $aliaspackage, $id]);
     }
 
+    //elminar categoria por id
     function remove($id)
     {
-
+        //Enviar la consulta (prepare y execute)
         $query = $this->db->prepare('DELETE FROM categoria WHERE id = ?');
         $query->execute([$id]);
     }

@@ -48,6 +48,6 @@
 </aside>
 </section>
 
-<script src='adminCategory.js'></script>
+<script src='js/adminCategory.js'></script>
 
 {include 'footer.tpl'}

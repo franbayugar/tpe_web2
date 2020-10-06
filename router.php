@@ -12,96 +12,126 @@ if (!empty($_GET['action'])) {
     $action = 'inicio'; // acción por defecto si no envían
 }
 
-// parsea la accion Ej: suma/1/2 --> ['suma', 1, 2]
 $params = explode('/', $action);
 
 // determina que camino seguir según la acción
 switch ($params[0]) {
+        //ir a home
     case 'inicio':
         $controller = new MainController();
         $controller->showHome();
         break;
+        //ir a about
     case 'nosotros':
         $controller = new MainController();
         $controller->showAbout();
         break;
+        //filtro para home - se hace mediante ajax
     case 'filtrar':
         $controller = new MainController();
-        $id = $params[1];
-        $controller->filter($id);
+        if (!empty($params[1])) {
+            $id = $params[1];
+            $controller->filter($id);
+        }
         break;
+        //url q lleva a login
     case 'login':
         $controller = new AdminController();
         $controller->showLogin();
         break;
+        //verificar inicio de sesion
     case 'verify':
         $controller = new AdminController();
         $controller->loginUser();
         break;
+        //desloguearse
     case 'logout':
         $controller = new AdminController();
         $controller->logout();
         break;
+        //pagina principal para administrador
     case 'administrador':
         $controller = new AdminController();
         $controller->showAdmin();
         break;
+        //insertar destino o categoria
     case 'insertar':
         $controller = new AdminController();
-        $id = $params[2];
-        if ($params[1] == 'categoria') {
-            $controller->addCategory();
-        }
-        if ($params[1] == 'destino') {
-            $controller->addDestination();
+        if (!empty($params[1])) {
+            if ($params[1] == 'categoria') {
+                $controller->addCategory();
+            }
+            if ($params[1] == 'destino') {
+                $controller->addDestination();
+            }
+        } else {
+            echo 'error';
         }
         break;
-    case 'eliminar': // eliminar/:ID
+        // eliminar x ID
+    case 'eliminar':
         $controller = new AdminController();
-        $id = $params[2];
-        if ($params[1] == 'categoria') {
-            $controller->deleteCategory($id);
-        }
-        if ($params[1] == 'destino') {
-            $controller->deleteDestination($id);
-        }
-        break;
-    case 'editar': // editar/:ID
-        $controller = new AdminController();
-        $id = $params[2];
-        if ($params[1] == 'categoria') {
-            $controller->updateCategory();
-        }
-        if ($params[1] == 'destino') {
-            $controller->updateDestination();
+        if (!empty($params[1]) && !empty($params[2])) {
+            if ($params[1] == 'categoria') {
+                $id = $params[2];
+                $controller->deleteCategory($id);
+            }
+            if ($params[1] == 'destino') {
+                $id = $params[2];
+                $controller->deleteDestination($id);
+            }
+        } else {
+            echo 'error';
         }
         break;
+        //mostrar editar
     case 'showedit': // editar/:ID
-        $controller = new AdminController();
-        $id = $params[1];
-        $controller->showEdit($id, 'destination');
+        if (!empty($params[1]) && !empty($params[2])) {
+            $controller = new AdminController();
+            if ($params[1] == 'category') {
+                $controller->showEdit($params[2], 'category');
+            } else if ($params[1] == 'destination') {
+                $controller->showEdit($params[2], 'destination');
+            } else {
+                echo 'error';
+            }
+        } else {
+            echo 'error';
+        }
         break;
-    case 'verdetalle': // ver detalle
+        // editar x ID
+    case 'editar':
+        if (!empty($params[1])) {
+            $controller = new AdminController();
+            if ($params[1] == 'categoria') {
+                $controller->updateCategory();
+            }
+            if ($params[1] == 'destino') {
+                $controller->updateDestination();
+            }
+        } else {
+            echo 'error';
+        }
+        break;
+        // ver detalle
+    case 'verdetalle':
         $controller = new MainController();
-        if ($params[1] != null) {
+        if (!empty($params[1])) {
             $id = $params[1];
             $controller->showMore($id);
         } else {
             echo 'error';
         }
         break;
+        //administrar destinos
     case 'destinationmanage':
         $controller = new AdminController();
         $controller->destinationManage();
         break;
+        //administrar categorias
     case 'categorymanage':
         $controller = new AdminController();
         $controller->categoryManage();
-        break;
-    case 'editcategory':
-        $controller = new AdminController();
-        $id = $params[1];
-        $controller->showEdit($id, 'category');
         break;
     default:
         header("HTTP/1.0 404 Not Found");
