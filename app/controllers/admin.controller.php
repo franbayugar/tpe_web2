@@ -4,62 +4,79 @@ include_once 'app/views/admin.view.php';
 include_once 'app/models/travel.model.php';
 include_once 'app/models/category.model.php';
 include_once 'app/models/user.model.php';
+include_once 'helpers/auth.helper.php';
 
 
-class AdminController {
+
+class AdminController
+{
 
     private $view;
     private $travelModel;
     private $categoryModel;
     private $userModel;
 
-    function __construct() {
+    function __construct()
+    {
         $this->view = new AdminView();
         $this->travelModel = new TravelModel();
         $this->categoryModel = new CategoryModel();
         $this->userModel = new UserModel();
-
     }
 
-    function showLogin() {
-       // actualizo la vista
-       $this->view->showLogin();
+    function showLogin()
+    {
+        AuthHelper::checkLogged();
+
+        // actualizo la vista
+        $this->view->showLogin();
     }
 
-    function loginUser(){
+    function loginUser()
+    {
         if (!empty($_POST['user']) && !empty($_POST['password'])) {
             $email = $_POST['user'];
             $password = $_POST['password'];
             $user = $this->userModel->getUserByEmail($email);
 
-            if(password_verify($password, $user->password)){
-                header("Location: " . BASE_URL . 'administrador'); 
+            if ($user && (password_verify($password, $user->password))) {
+                //abro sesion y guardo al usuario
+                session_start();
+                $_SESSION['ID_USER'] = $user->id;
+                $_SESSION['username'] = $user->email;
 
+                header("Location: " . BASE_URL . 'administrador');
+            } else {
+                $this->view->showLogin('Usuario o contraseña incorrectos');
             }
-            else{
-                echo 'usuario o pas inc';
-            }
-        }
-        else{
-            header("HTTP/1.0 403 Forbidden");
+        } else {
+            $this->view->showLogin('Faltan datos obligatorios');
         }
     }
 
-    function showAdmin(){
+    function showAdmin()
+    {
+        AuthHelper::checkLoggedIn();
+
         $this->view->showAdmin();
-
     }
 
-    function addToDataBase(){
-        if($_POST['idmanage'] == '1'){
+    function addToDataBase()
+    {
+        AuthHelper::checkLoggedIn();
+
+        if ($_POST['idmanage'] == '1') {
             $this->addDestination();
         }
-        if($_POST['idmanage'] == '2'){
+        if ($_POST['idmanage'] == '2') {
             $this->addCategory();
         }
     }
 
-    function addDestination() {
+    function addDestination()
+    {
+        AuthHelper::checkLoggedIn();
+
         $place = $_POST['place'];
         $shortdescription = $_POST['shortdescription'];
         $description = $_POST['description'];
@@ -67,7 +84,7 @@ class AdminController {
         $category = $_POST['category'];
 
         // verifico campos obligatorios
-        if (empty($place) || empty($shortdescription) || empty($description) || empty($value) || empty($category))  {
+        if (empty($place) || empty($shortdescription) || empty($description) || empty($value) || empty($category)) {
             $this->view->showError('Faltan datos obligatorios');
             die();
         }
@@ -76,16 +93,19 @@ class AdminController {
         $id = $this->travelModel->insert($place, $shortdescription, $description, $value, $category);
 
         // redirigimos al listado
-        header("Location: " . BASE_URL . 'destinationmanage'); 
+        header("Location: " . BASE_URL . 'destinationmanage');
     }
 
-    function addCategory() {
+    function addCategory()
+    {
+        AuthHelper::checkLoggedIn();
+
         $package = $_POST['package'];
         $aliaspackage = $_POST['aliaspackage'];
- 
+
 
         // verifico campos obligatorios
-        if (empty($package) || empty($aliaspackage))  {
+        if (empty($package) || empty($aliaspackage)) {
             $this->view->showError('Faltan datos obligatorios');
             die();
         }
@@ -94,27 +114,39 @@ class AdminController {
         $this->categoryModel->insert($package, $aliaspackage);
 
         // redirigimos al listado
-        header("Location: " . BASE_URL . 'categorymanage'); 
+        header("Location: " . BASE_URL . 'categorymanage');
     }
 
-    function deleteDestination($id) {
+    function deleteDestination($id)
+    {
+        AuthHelper::checkLoggedIn();
+
         $this->travelModel->remove($id);
-        header("Location: " . BASE_URL . 'destinationmanage'); 
+        header("Location: " . BASE_URL . 'destinationmanage');
     }
 
-    function deleteCategory($id) {
+    function deleteCategory($id)
+    {
+        AuthHelper::checkLoggedIn();
+
         $this->categoryModel->remove($id);
-        header("Location: " . BASE_URL . 'categorymanage'); 
+        header("Location: " . BASE_URL . 'categorymanage');
     }
 
-    function showEdit($id) {
+    function showEdit($id)
+    {
+        AuthHelper::checkLoggedIn();
+
         $destination = $this->travelModel->getOne($id);
         $category = $this->categoryModel->getAll();
 
         $this->view->showEdit($destination, $category);
     }
 
-    function updateDestination() {
+    function updateDestination()
+    {
+        AuthHelper::checkLoggedIn();
+
         $place = $_POST['place'];
         $shortdescription = $_POST['shortdescription'];
         $description = $_POST['description'];
@@ -123,8 +155,8 @@ class AdminController {
         $id = $_POST['id'];
 
         // verifico campos obligatorios
-        if (empty($place) || empty($shortdescription) || empty($description) || empty($value) || empty($category)  || empty($id))  {
-            $this->view->showError('Faltan datos obligatorios');
+        if (empty($place) || empty($shortdescription) || empty($description) || empty($value) || empty($category)  || empty($id)) {
+            $this->view->showLogin('Faltan datos obligatorios');
             die();
         }
 
@@ -132,18 +164,28 @@ class AdminController {
         $this->travelModel->update($place, $shortdescription, $description, $value, $category, $id);
 
         // redirigimos al listado
-        header("Location: " . BASE_URL . 'administrador'); 
+        header("Location: " . BASE_URL . 'destinationmanage');
     }
 
-    function destinationManage(){
+    function destinationManage()
+    {
+        AuthHelper::checkLoggedIn();
+
         $destination = $this->travelModel->getAll();
         $category = $this->categoryModel->getAll();
         $this->view->showDestinationManage($destination, $category);
     }
 
-    function categoryManage(){
+    function categoryManage()
+    {
+        AuthHelper::checkLoggedIn();
+
         $category = $this->categoryModel->getAll();
         $this->view->showCategoryManage($category);
     }
 
+    function logout()
+    {
+        AuthHelper::logout();
+    }
 }

@@ -3,7 +3,7 @@ include_once 'app/controllers/admin.controller.php';
 include_once 'app/controllers/main.controller.php';
 
 // defino la base url para la construccion de links con urls semánticas
-define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
+define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
 // lee la acción
 if (!empty($_GET['action'])) {
@@ -25,7 +25,7 @@ switch ($params[0]) {
         $controller = new MainController();
         $controller->showAbout();
         break;
-    case 'filtrar':    
+    case 'filtrar':
         $controller = new MainController();
         $id = $params[1];
         $controller->filter($id);
@@ -38,6 +38,10 @@ switch ($params[0]) {
         $controller = new AdminController();
         $controller->loginUser();
         break;
+    case 'logout':
+        $controller = new AdminController();
+        $controller->logout();
+        break;
     case 'administrador':
         $controller = new AdminController();
         $controller->showAdmin();
@@ -46,45 +50,44 @@ switch ($params[0]) {
         $controller = new AdminController();
         $controller->addToDataBase();
         break;
-    case 'eliminarcategoria': // eliminar/:ID
+    case 'eliminar': // eliminar/:ID
         $controller = new AdminController();
-        $id = $params[1];
-        $controller->deleteCategory($id);
-        break;  
-    case 'eliminardestino': // eliminar/:ID
-        $controller = new AdminController();
-        $id = $params[1];
-        $controller->deleteDestination($id);
-        break;  
+        $id = $params[2];
+        if ($params[1] == 'categoria') {
+            $controller->deleteCategory($id);
+        }
+        if ($params[1] == 'destino') {
+            $controller->deleteDestination($id);
+        }
+        break;
     case 'editar': // editar/:ID
         $controller = new AdminController();
         $controller->updateDestination();
-        break; 
+        break;
     case 'showedit': // editar/:ID
         $controller = new AdminController();
         $id = $params[1];
         $controller->showEdit($id);
-        break;      
+        break;
     case 'verdetalle': // ver detalle
         $controller = new MainController();
-        if($params[1] != null){
-        $id = $params[1];
-        $controller->showMore($id);
-        }
-        else{
+        if ($params[1] != null) {
+            $id = $params[1];
+            $controller->showMore($id);
+        } else {
             echo 'error';
-        } 
-        break; 
-    case'destinationmanage':
+        }
+        break;
+    case 'destinationmanage':
         $controller = new AdminController();
         $controller->destinationManage();
         break;
-    case'categorymanage':
+    case 'categorymanage':
         $controller = new AdminController();
         $controller->categoryManage();
         break;
     default:
         header("HTTP/1.0 404 Not Found");
-        echo('404 Page not found');
+        echo ('404 Page not found');
         break;
 }

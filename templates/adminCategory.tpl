@@ -38,7 +38,7 @@
                     <td>{$package->paquete}</td>
                     <td>{$package->aliaspaquete}</td>
                     <td><a class='btn-edit btn btn-warning btn-sm' id='{$package->id}'>Editar</a>
-                    <a class='btn btn-danger btn-sm' href='eliminarcategoria/{$package->id}'>Eliminar</a></td>
+                    <a class='btn btn-danger btn-sm' href='eliminar/categoria/{$package->id}'>Eliminar</a></td>
                 </tr>
             {/foreach}
         </tbody>

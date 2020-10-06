@@ -8,7 +8,14 @@
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Contraseña" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Acceder</button>
       </form>
+           {if $error}
+                <div class="alert alert-danger">
+                    {$error}
+                </div>
+                {/if}
 </div>
+           
+
 {include 'footer.tpl'}
 
 </body>
