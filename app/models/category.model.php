@@ -1,10 +1,12 @@
 <?php
 
-class CategoryModel {
+class CategoryModel
+{
 
-private $db;
+    private $db;
 
-    function __construct() {
+    function __construct()
+    {
         // 1. Abro la conexión
         $this->db = $this->connect();
     }
@@ -12,12 +14,14 @@ private $db;
     /**
      * Abre conexión a la base de datos;
      */
-    private function connect() {
-        $db = new PDO('mysql:host=localhost;'.'dbname=db_travelpage;charset=utf8', 'root', '');
+    private function connect()
+    {
+        $db = new PDO('mysql:host=localhost;' . 'dbname=db_travelpage;charset=utf8', 'root', '');
         return $db;
     }
 
-    function getAll() {
+    function getAll()
+    {
 
         // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
         $query = $this->db->prepare('SELECT * FROM categoria');
@@ -28,7 +32,19 @@ private $db;
 
         return $category;
     }
-    function insert($package, $aliaspackage) {
+    function getOne($id)
+    {
+
+        // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
+        $query = $this->db->prepare('SELECT * FROM categoria WHERE id = ?');
+        $query->execute([$id]);
+        // 3. Obtengo la respuesta con un fetch (porque son muchos)
+        $category = $query->fetch(PDO::FETCH_OBJ); //tarea
+
+        return $category;
+    }
+    function insert($package, $aliaspackage)
+    {
 
         // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
         $query = $this->db->prepare('INSERT INTO categoria (paquete, aliaspaquete) VALUES (?,?)');
@@ -39,8 +55,17 @@ private $db;
         return $this->db->lastInsertId();
     }
 
-    function remove($id) {  
-  
+    function update($package, $aliaspackage, $id)
+    {
+        $query = $this->db->prepare('UPDATE categoria 
+        SET paquete = ?, aliaspaquete = ?
+        WHERE id = ?');
+        $query->execute([$package, $aliaspackage, $id]);
+    }
+
+    function remove($id)
+    {
+
         $query = $this->db->prepare('DELETE FROM categoria WHERE id = ?');
         $query->execute([$id]);
     }

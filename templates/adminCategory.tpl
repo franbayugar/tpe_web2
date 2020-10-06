@@ -1,10 +1,9 @@
 {include 'header.tpl'}
 <section class="container-category">
 <section class="container">
-<form action="insertar" method="POST" class="my-4">
+<form action="insertar/categoria" method="POST" class="my-4">
     <div class="row">
         <div class="col-6">
-            <input type="hidden" name="idmanage" value='2'>
             <div class="form-group">
                 <label>Nombre del paquete</label>
                 <input name="package" type="text" class="form-control" required>
@@ -48,5 +47,7 @@
 <a type="button" href="administrador" class="btn-admin btn btn-lg btn-primary pl-4 pr-4">Volver</a>
 </aside>
 </section>
+
+<script src='adminCategory.js'></script>
 
 {include 'footer.tpl'}

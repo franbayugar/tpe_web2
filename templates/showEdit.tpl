@@ -1,7 +1,7 @@
 <aside class="modal-result d-flex justify-content-center align-items-center">
     <div class="card-modal bg-white p-5 rounded-left rounded-right">
         <h3>Modificar destino</h3>
-        <form action="editar" method="POST" class="my-4">
+        <form action="editar/destino" method="POST" class="my-4">
         <div class="row">
             <div class="col-9">
                 <div class="form-group">

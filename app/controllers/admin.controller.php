@@ -61,17 +61,6 @@ class AdminController
         $this->view->showAdmin();
     }
 
-    function addToDataBase()
-    {
-        AuthHelper::checkLoggedIn();
-
-        if ($_POST['idmanage'] == '1') {
-            $this->addDestination();
-        }
-        if ($_POST['idmanage'] == '2') {
-            $this->addCategory();
-        }
-    }
 
     function addDestination()
     {
@@ -133,14 +122,21 @@ class AdminController
         header("Location: " . BASE_URL . 'categorymanage');
     }
 
-    function showEdit($id)
+    function showEdit($id, $filter)
     {
         AuthHelper::checkLoggedIn();
 
-        $destination = $this->travelModel->getOne($id);
-        $category = $this->categoryModel->getAll();
+        if ($filter == 'destination') {
+            $destination = $this->travelModel->getOne($id);
+            $category = $this->categoryModel->getAll();
 
-        $this->view->showEdit($destination, $category);
+            $this->view->showEdit($category, $destination);
+        }
+        if ($filter == 'category') {
+
+            $category = $this->categoryModel->getOne($id);
+            $this->view->showEdit($category);
+        }
     }
 
     function updateDestination()
@@ -184,6 +180,27 @@ class AdminController
         $this->view->showCategoryManage($category);
     }
 
+    function updateCategory()
+    {
+        AuthHelper::checkLoggedIn();
+
+        $package = $_POST['package'];
+        $aliaspackage = $_POST['aliaspackage'];
+        $id = $_POST['id'];
+
+
+        // verifico campos obligatorios
+        if (empty($package) || empty($aliaspackage) || empty($id)) {
+            $this->view->showError('Faltan datos obligatorios');
+            die();
+        }
+
+        // inserto la tarea en la DB
+        $this->categoryModel->update($package, $aliaspackage, $id);
+
+        // redirigimos al listado
+        header("Location: " . BASE_URL . 'categorymanage');
+    }
     function logout()
     {
         AuthHelper::logout();

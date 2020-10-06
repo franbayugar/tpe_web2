@@ -48,7 +48,13 @@ switch ($params[0]) {
         break;
     case 'insertar':
         $controller = new AdminController();
-        $controller->addToDataBase();
+        $id = $params[2];
+        if ($params[1] == 'categoria') {
+            $controller->addCategory();
+        }
+        if ($params[1] == 'destino') {
+            $controller->addDestination();
+        }
         break;
     case 'eliminar': // eliminar/:ID
         $controller = new AdminController();
@@ -62,12 +68,18 @@ switch ($params[0]) {
         break;
     case 'editar': // editar/:ID
         $controller = new AdminController();
-        $controller->updateDestination();
+        $id = $params[2];
+        if ($params[1] == 'categoria') {
+            $controller->updateCategory();
+        }
+        if ($params[1] == 'destino') {
+            $controller->updateDestination();
+        }
         break;
     case 'showedit': // editar/:ID
         $controller = new AdminController();
         $id = $params[1];
-        $controller->showEdit($id);
+        $controller->showEdit($id, 'destination');
         break;
     case 'verdetalle': // ver detalle
         $controller = new MainController();
@@ -85,6 +97,11 @@ switch ($params[0]) {
     case 'categorymanage':
         $controller = new AdminController();
         $controller->categoryManage();
+        break;
+    case 'editcategory':
+        $controller = new AdminController();
+        $id = $params[1];
+        $controller->showEdit($id, 'category');
         break;
     default:
         header("HTTP/1.0 404 Not Found");
