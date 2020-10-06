@@ -18,7 +18,7 @@
     </div>
 </section>
 {include 'footer.tpl'}
-<script src="main.js"></script>
+<script src="js/main.js"></script>
 
 </body>
 

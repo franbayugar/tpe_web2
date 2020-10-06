@@ -1,8 +1,10 @@
 <?php
-require_once ('libs/smarty/libs/Smarty.class.php');
+require_once('libs/smarty/libs/Smarty.class.php');
 
-class MainView{
-    function showHome($destination, $category){
+class MainView
+{
+    function showHome($destination, $category)
+    {
         $smarty = new Smarty();
 
         $smarty->assign('destination', $destination);
@@ -13,13 +15,15 @@ class MainView{
         $smarty->display('templates/homePage.tpl');
     }
 
-    function showAbout(){
+    function showAbout()
+    {
         $smarty = new Smarty();
 
         $smarty->display('templates/about.tpl');
     }
 
-    function filter($destination, $checkId){
+    function filter($destination, $checkId)
+    {
         $smarty = new Smarty();
 
         $smarty->assign('destination', $destination);
@@ -29,13 +33,12 @@ class MainView{
         $smarty->display('templates/homeFilter.tpl');
     }
 
-    function showMore($destination){
+    function showMore($destination)
+    {
         $smarty = new Smarty();
 
         $smarty->assign('destination', $destination);
 
         $smarty->display('templates/showDetail.tpl');
     }
-
-
 }

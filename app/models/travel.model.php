@@ -1,75 +1,85 @@
 <?php
 
-class TravelModel {
+class TravelModel
+{
 
     private $db;
 
-    function __construct() {
-         // 1. Abro la conexión
+    function __construct()
+    {
+        // 1. Abro la conexión
         $this->db = $this->connect();
     }
 
-    /**
-     * Abre conexión a la base de datos;
-     */
-    private function connect() {
-        $db = new PDO('mysql:host=localhost;'.'dbname=db_travelpage;charset=utf8', 'root', '');
+    //Abre conexión a la base de datos;
+    private function connect()
+    {
+        $db = new PDO('mysql:host=localhost;' . 'dbname=db_travelpage;charset=utf8', 'root', '');
         return $db;
     }
 
-    /**
-     * Devuelve todas las tareas de la base de datos.
-     */
-    function getAll() {
-
-        // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
+    //Devuelve todos los destinos de la base de datos.
+    function getAll()
+    {
+        //Enviar la consulta (prepare y execute)
         $query = $this->db->prepare('SELECT *, des.id as id_destino FROM `destino` des INNER JOIN `categoria` ON `id_categoria` = categoria.id;');
         $query->execute();
 
-        // 3. Obtengo la respuesta con un fetchAll (porque son muchos)
+        //Obtengo la respuesta con un fetchAll (porque son muchos)
         $destination = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de tareas
 
+        //retorno lo que trae
         return $destination;
     }
 
-    function getOne($id) {
-
-        // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
+    //obtener un destino
+    function getOne($id)
+    {
+        //Enviar la consulta (prepare y execute)
         $query = $this->db->prepare('SELECT *, destino.id as id_destino FROM `destino` INNER JOIN `categoria` ON `id_categoria` = categoria.id WHERE destino.id = ?');
-        $query->execute([$id]); 
-        // 3. Obtengo la respuesta con un fetch (porque son muchos)
-        $destination = $query->fetch(PDO::FETCH_OBJ); //tarea
+        $query->execute([$id]);
 
+        // Obtengo la respuesta con un fetch
+        $destination = $query->fetch(PDO::FETCH_OBJ); //destino
+
+        //retorno lo que trae
         return $destination;
     }
 
-    function getByCategory($id) {
-
-        // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
+    //obtener un destino por categoria
+    function getByCategory($id)
+    {
+        //Enviar la consulta (prepare y execute)
         $query = $this->db->prepare('SELECT *, destino.id as id_destino FROM `destino` INNER JOIN `categoria` ON `id_categoria` = categoria.id WHERE id_categoria = ?');
-        $query->execute([$id]); 
-        // 3. Obtengo la respuesta con un fetch (porque son muchos)
-        $destination = $query->fetchAll(PDO::FETCH_OBJ); //tarea
+        $query->execute([$id]);
 
+        // Obtengo la respuesta con un fetchAll
+        $destination = $query->fetchAll(PDO::FETCH_OBJ); //destino
+
+        //retorno lo que trae
         return $destination;
     }
 
-    
-    function insert($place, $shortdescription, $description, $value, $category) {
-
-        // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
+    //insertar datos
+    function insert($place, $shortdescription, $description, $value, $category)
+    {
+        //Enviar la consulta (prepare y execute)
         $query = $this->db->prepare('INSERT INTO destino (destino, descripcion_breve, descripcion, precio, id_categoria) VALUES (?,?,?,?,?)');
         $query->execute([$place, $shortdescription, $description, $value, $category]);
-        // 3. Obtengo y devuelo el ID de la tarea nueva
     }
 
-    function remove($id) {  
-  
+    //eliminar datos
+    function remove($id)
+    {
+        //Enviar la consulta (prepare y execute)
         $query = $this->db->prepare('DELETE FROM destino WHERE id = ?');
         $query->execute([$id]);
     }
 
-    function update($place, $shortdescription, $description, $value, $category, $id) {  
+    //actualizar datos
+    function update($place, $shortdescription, $description, $value, $category, $id)
+    {
+        //Enviar la consulta (prepare y execute)
         $query = $this->db->prepare('UPDATE destino 
         SET destino = ?, descripcion_breve = ?, descripcion = ?, precio = ?, id_categoria = ?
         WHERE id = ?');

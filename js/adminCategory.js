@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     botones();
-    let container = document.querySelector(".container-destination");
+    let container = document.querySelector(".container-category");
 
     function botones() {
         let botones = document.querySelectorAll('.btn-edit');
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     async function call(id) {
-        let response = await fetch(`showedit/${id}`, {
+        let response = await fetch(`showedit/category/${id}`, {
             method: 'GET'
         });
         let html = await response.text();

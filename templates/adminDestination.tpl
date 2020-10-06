@@ -31,5 +31,5 @@
 </aside>
 </section>
 
-<script src="admin.js"></script>
+<script src="js/adminDestination.js"></script>
 {include 'footer.tpl'}
