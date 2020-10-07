@@ -109,7 +109,7 @@ class AdminController
         //guardo lo que llega del form por post en variables
         $package = $_POST['package'];
         $aliaspackage = $_POST['aliaspackage'];
-
+        $aliaspackage = strtoupper($aliaspackage);
         // inserto la categoria en la DB
         $this->categoryModel->insert($package, $aliaspackage);
 
@@ -207,6 +207,7 @@ class AdminController
         //guardo datos en variables
         $package = $_POST['package'];
         $aliaspackage = $_POST['aliaspackage'];
+        $aliaspackage = strtoupper($aliaspackage);
         $id = $_POST['id'];
 
         // inserto la tarea en la DB
