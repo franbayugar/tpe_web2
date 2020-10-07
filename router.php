@@ -29,7 +29,7 @@ switch ($params[0]) {
         //filtro para home - se hace mediante ajax
     case 'filtrar':
         $controller = new MainController();
-        if (!empty($params[1])) {
+        if (!empty($params[1]) || $params[1] == '0') {
             $id = $params[1];
             $controller->filter($id);
         }
@@ -65,7 +65,7 @@ switch ($params[0]) {
                 $controller->addDestination();
             }
         } else {
-            echo 'error';
+            $controller->showError();
         }
         break;
         // eliminar x ID
@@ -81,28 +81,28 @@ switch ($params[0]) {
                 $controller->deleteDestination($id);
             }
         } else {
-            echo 'error';
+            $controller->showError();
         }
         break;
         //mostrar editar
     case 'showedit': // editar/:ID
+        $controller = new AdminController();
         if (!empty($params[1]) && !empty($params[2])) {
-            $controller = new AdminController();
             if ($params[1] == 'category') {
                 $controller->showEdit($params[2], 'category');
             } else if ($params[1] == 'destination') {
                 $controller->showEdit($params[2], 'destination');
             } else {
-                echo 'error';
+                $controller->showError();
             }
         } else {
-            echo 'error';
+            $controller->showError();
         }
         break;
         // editar x ID
     case 'editar':
+        $controller = new AdminController();
         if (!empty($params[1])) {
-            $controller = new AdminController();
             if ($params[1] == 'categoria') {
                 $controller->updateCategory();
             }
@@ -110,7 +110,7 @@ switch ($params[0]) {
                 $controller->updateDestination();
             }
         } else {
-            echo 'error';
+            $controller->showError();
         }
         break;
         // ver detalle
@@ -120,7 +120,7 @@ switch ($params[0]) {
             $id = $params[1];
             $controller->showMore($id);
         } else {
-            echo 'error';
+            $controller->showError();
         }
         break;
         //administrar destinos

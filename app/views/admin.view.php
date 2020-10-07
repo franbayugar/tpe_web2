@@ -21,41 +21,27 @@ class AdminView
 
     function showError()
     {
-        echo 'Error!';
+        $smarty = new Smarty();
+
+        $smarty->display('templates/showError.tpl');
     }
 
     function showEdit($category, $destination = null)
     {
         $smarty = new Smarty();
 
-        if ($destination) {
+        $smarty->assign('destination', $destination);
 
-            $smarty->assign('destination', $destination);
+        $smarty->assign('category', $category);
 
-            $smarty->assign('category', $category);
-
-            $smarty->display('templates/showEdit.tpl');
-        } else {
-            $smarty->assign('category', $category);
-
-            $smarty->display('templates/showEditCategory.tpl');
-        }
+        $smarty->display('templates/showEdit.tpl');
     }
 
-    function showDestinationManage($destination, $category)
+    function showManage($category, $destination = null)
     {
         $smarty = new Smarty();
         $smarty->assign('destination', $destination);
         $smarty->assign('category', $category);
-
-        $smarty->display('templates/adminDestination.tpl');
-    }
-
-    function showCategoryManage($category)
-    {
-        $smarty = new Smarty();
-        $smarty->assign('category', $category);
-
-        $smarty->display('templates/adminCategory.tpl');
+        $smarty->display('templates/adminManage.tpl');
     }
 }

@@ -27,9 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function botonBack() {
         setTimeout(() => {
-            let btnBack = document.querySelector('.btn-back');
-            btnBack.addEventListener('click', () => {
-                call(btnBack.getAttribute("id"));
+            let btnSeeAll = document.querySelector('.btn-all');
+            btnSeeAll.addEventListener('click', () => {
+                call(btnSeeAll.getAttribute("id"));
             });
         }, 500);
 

@@ -75,6 +75,11 @@ class AdminController
     {
         //check login
         AuthHelper::checkLoggedIn();
+        // verifico campos obligatorios
+        if (empty($_POST['place']) || empty($_POST['shortdescription']) || empty($_POST['description']) || empty($_POST['value']) || empty($_POST['category'])) {
+            $this->view->showError();
+            die();
+        }
 
         //guardo lo que llega del form por post en variables
         $place = $_POST['place'];
@@ -83,11 +88,6 @@ class AdminController
         $value = $_POST['value'];
         $category = $_POST['category'];
 
-        // verifico campos obligatorios
-        if (empty($place) || empty($shortdescription) || empty($description) || empty($value) || empty($category)) {
-            $this->view->showError('Faltan datos obligatorios');
-            die();
-        }
         // inserto el destino en la DB
         $id = $this->travelModel->insert($place, $shortdescription, $description, $value, $category);
 
@@ -100,16 +100,15 @@ class AdminController
     {
         //check login
         AuthHelper::checkLoggedIn();
-        //guardo lo que llega del form por post en variables
-        $package = $_POST['package'];
-        $aliaspackage = $_POST['aliaspackage'];
 
         // verifico campos obligatorios
-        if (empty($package) || empty($aliaspackage)) {
+        if (empty($_POST['package']) || empty($_POST['aliaspackage'])) {
             $this->view->showError('Faltan datos obligatorios');
             die();
         }
-
+        //guardo lo que llega del form por post en variables
+        $package = $_POST['package'];
+        $aliaspackage = $_POST['aliaspackage'];
 
         // inserto la categoria en la DB
         $this->categoryModel->insert($package, $aliaspackage);
@@ -154,7 +153,7 @@ class AdminController
             if ($category != null || $destination != null) {
                 $this->view->showEdit($category, $destination);
             } else {
-                echo 'error';
+                $this->view->showError();
             }
         }
         if ($filter == 'category') {
@@ -163,7 +162,7 @@ class AdminController
             if ($category != null) {
                 $this->view->showEdit($category);
             } else {
-                echo 'error';
+                $this->view->showError();
             }
         }
     }
@@ -174,6 +173,11 @@ class AdminController
         //check login
         AuthHelper::checkLoggedIn();
 
+        // verifico campos obligatorios
+        if (empty($_POST['place']) || empty($_POST['shortdescription']) || empty($_POST['description']) || empty($_POST['value']) || empty($_POST['category'])  || empty($_POST['id'])) {
+            $this->view->showError();
+            die();
+        }
         //guardo los datos en variables
         $place = $_POST['place'];
         $shortdescription = $_POST['shortdescription'];
@@ -181,12 +185,6 @@ class AdminController
         $value = $_POST['value'];
         $category = $_POST['category'];
         $id = $_POST['id'];
-
-        // verifico campos obligatorios
-        if (empty($place) || empty($shortdescription) || empty($description) || empty($value) || empty($category)  || empty($id)) {
-            $this->view->showError();
-            die();
-        }
 
         // inserto el destino en la DB
         $this->travelModel->update($place, $shortdescription, $description, $value, $category, $id);
@@ -200,17 +198,17 @@ class AdminController
     {
         //check login
         AuthHelper::checkLoggedIn();
+        // verifico campos obligatorios
+        if (empty($_POST['package']) || empty($_POST['aliaspackage']) || empty($_POST['id'])) {
+            $this->view->showError();
+            die();
+        }
 
         //guardo datos en variables
         $package = $_POST['package'];
         $aliaspackage = $_POST['aliaspackage'];
         $id = $_POST['id'];
 
-        // verifico campos obligatorios
-        if (empty($package) || empty($aliaspackage) || empty($id)) {
-            $this->view->showError();
-            die();
-        }
         // inserto la tarea en la DB
         $this->categoryModel->update($package, $aliaspackage, $id);
 
@@ -226,7 +224,7 @@ class AdminController
 
         $destination = $this->travelModel->getAll();
         $category = $this->categoryModel->getAll();
-        $this->view->showDestinationManage($destination, $category);
+        $this->view->showManage($category, $destination);
     }
 
     //mostrar pagina para administrar categorias
@@ -236,11 +234,16 @@ class AdminController
         AuthHelper::checkLoggedIn();
 
         $category = $this->categoryModel->getAll();
-        $this->view->showCategoryManage($category);
+        $this->view->showManage($category);
     }
     //funcion para desloguearse
     function logout()
     {
         AuthHelper::logout();
+    }
+    function showError()
+    {
+        session_start();
+        $this->view->showError();
     }
 }

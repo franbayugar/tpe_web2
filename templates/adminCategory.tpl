@@ -1,6 +1,11 @@
-{include 'header.tpl'}
 <section class="container-category">
+    <div class="m-5">
+        <h1 class="display-4">Administrador de categorías</h1>
+    </div>
+      <hr class="my-4">
+
 <section class="container">
+        <h4>Agregue una nueva categoría:</h4>
 <form action="insertar/categoria" method="POST" class="my-4">
     <div class="row">
         <div class="col-6">
@@ -12,16 +17,16 @@
 
         <div class="col-6">
             <div class="form-group">
-                <label>Alias paquete (en mayúscula)</label>
-                <input type="text" name="aliaspackage" class="form-control" required>
+                <label>Alias paquete</label>
+                <input type="text" name="aliaspackage" class="alias-category form-control" required>
                 </select>
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Guardar</button>
+    <button type="submit" class="btn btn-success">Agregar</button>
 </form>
 </section>
-
+  <hr class="my-4">
 <section class="section-table">
     <table class="table table-striped table-dark">
         <thead>
@@ -47,7 +52,3 @@
 <a type="button" href="administrador" class="btn-admin btn btn-lg btn-primary pl-4 pr-4">Volver</a>
 </aside>
 </section>
-
-<script src='js/adminCategory.js'></script>
-
-{include 'footer.tpl'}

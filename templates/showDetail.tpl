@@ -27,10 +27,6 @@
                 </div>
     </div>
 </section>
-
 {include 'footer.tpl'}
-<script src="main.js"></script>
-
 </body>
-
 </html>

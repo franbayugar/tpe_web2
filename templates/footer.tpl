@@ -1,4 +1,4 @@
-</main> <!-- fin del contenedor principal -->
+    </main> <!-- fin del contenedor principal -->
 
         <!-- FOOTER -->
         <footer id="footer" class="p-4">

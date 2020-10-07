@@ -19,7 +19,7 @@ class MainView
     {
         $smarty = new Smarty();
 
-        $smarty->display('templates/about.tpl');
+        $smarty->display('templates/aboutPage.tpl');
     }
 
     function filter($destination, $checkId)
@@ -40,5 +40,17 @@ class MainView
         $smarty->assign('destination', $destination);
 
         $smarty->display('templates/showDetail.tpl');
+    }
+
+    function showError($error = null)
+    {
+        $smarty = new Smarty();
+        if ($error) {
+            $smarty->assign('error', $error);
+
+            $smarty->display('templates/error.tpl');
+        } else {
+            $smarty->display('templates/showError.tpl');
+        }
     }
 }

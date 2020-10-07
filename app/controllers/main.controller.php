@@ -51,7 +51,7 @@ class MainController
             $this->view->filter($destination, $id);
          } else {
             //si no trae nada mostramos que aun no tenemos cargada esa categoria
-            echo 'algo salio mal';
+            $this->view->showError('Aún no tenemos esta categoría disponible para vos');
          }
       }
       //si llega id 0 se muestra todo lo que hay en la base de datos de destino
@@ -68,8 +68,13 @@ class MainController
       if ($destination != null) {
          $this->view->showMore($destination);
       } else {
-         echo 'error';
+         $this->showError();
          die();
       }
+   }
+
+   function showError()
+   {
+      $this->view->showError();
    }
 }

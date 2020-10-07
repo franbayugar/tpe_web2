@@ -17,7 +17,7 @@
         {if {$checkId} neq '0'}
         <div class="row row-cols-md-2 justify-content-md-center">
         <div class="col text-center">
-            <a class="btn-back btn btn-lg-4 rounded-pill btn-danger w-100 p-2 m-3 shadow-sm font-weight-bold" id='0'>Ver todos los paquetes</a>
+            <a class="btn-all btn btn-lg-4 rounded-pill btn-danger w-100 p-2 m-3 shadow-sm font-weight-bold" id='0'>Ver todos los paquetes</a>
         </div>
         {/if}
     </div>    
