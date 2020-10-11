@@ -50,9 +50,6 @@ class CategoryModel
         //Enviar la consulta (prepare y execute)
         $query = $this->db->prepare('INSERT INTO categoria (paquete, aliaspaquete) VALUES (?,?)');
         $query->execute([$package, $aliaspackage]);
-
-        // Obtengo y devuelo el ID de la tarea nueva
-        return $this->db->lastInsertId();
     }
 
     //editar categoria en la DB

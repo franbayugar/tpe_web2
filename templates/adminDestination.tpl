@@ -1,3 +1,4 @@
+{include 'header.tpl'}
 <section class="container-destination">
     <div class="m-5">
         <h1 class="display-4">Administrador de destinos</h1>
@@ -73,3 +74,7 @@
 <a type="button" href="administrador" class="btn-admin btn btn-lg btn-primary pl-4 pr-4">Volver</a>
 </aside>
 </section>
+{include 'footer.tpl'}
+<script src="js/adminDestination.js"></script>
+</body>
+</html>

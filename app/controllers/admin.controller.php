@@ -134,7 +134,16 @@ class AdminController
         //check login
         AuthHelper::checkLoggedIn();
         //enviamos por parametro la id de la categoria a borrar al modal category
+        $destination = $this->travelModel->getAll();
+        foreach ($destination as $place) {
+            if ($id == $place->id_categoria) {
+                $category = $this->categoryModel->getAll();
+                $this->view->showCategoryManage($category, "No se puede eliminar la categoría '{$place->paquete}' porque está en uso");
+                die();
+            }
+        }
         $this->categoryModel->remove($id);
+
         //redirigmos
         header("Location: " . BASE_URL . 'categorymanage');
     }
@@ -167,7 +176,7 @@ class AdminController
         }
     }
 
-    //actualizar en la db
+    //actualizar destino en la db
     function updateDestination()
     {
         //check login
@@ -193,7 +202,7 @@ class AdminController
         header("Location: " . BASE_URL . 'destinationmanage');
     }
 
-    //actualizar categoria
+    //actualizar categoria en la db
     function updateCategory()
     {
         //check login
@@ -225,7 +234,7 @@ class AdminController
 
         $destination = $this->travelModel->getAll();
         $category = $this->categoryModel->getAll();
-        $this->view->showManage($category, $destination);
+        $this->view->showDestinationManage($category, $destination);
     }
 
     //mostrar pagina para administrar categorias
@@ -235,7 +244,7 @@ class AdminController
         AuthHelper::checkLoggedIn();
 
         $category = $this->categoryModel->getAll();
-        $this->view->showManage($category);
+        $this->view->showCategoryManage($category);
     }
     //funcion para desloguearse
     function logout()

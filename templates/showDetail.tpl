@@ -12,19 +12,19 @@
 <body>
 {include 'header.tpl'}
 <section class="container-md p-5">
-            <div class="col-sm-4">
-                    <div class="travel-card card w-100 card-border mb-5">
-                        <img src="img/card01.jpg" class="card-img-top" alt="...">
-                        <div class='product card-text'>
-                        <p>{$destination->aliaspaquete}</p>
-                        </div>
-                        <div class="card-body">
-                            <h3>{$destination->destino}</h3> 
-                            <p class='card-text'>{$destination->descripcion}</p>
-                            <p class='card-text'>Precio: ${$destination->precio}</p>
-                        </div>
-                    </div>
-                </div>
+    <div class="row">
+    <div>
+        <h1 class="display-3">{$destination->destino}</h1>
+    </div>      
+          <hr class="my-4">
+    <div class="col-sm-12">
+    <p class="font-weight-bold">{$destination->aliaspaquete}</p>
+    <p class="font-italic">{$destination->descripcion}</p>
+        <div class="text-center">
+    <a type="button" href="inicio" class="btn-admin btn btn-md btn-primary">Volver</a>
+        </div>      
+
+    </div>
     </div>
 </section>
 {include 'footer.tpl'}

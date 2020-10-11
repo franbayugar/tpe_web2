@@ -1,3 +1,4 @@
+{include 'header.tpl'}
 <section class="container-category">
     <div class="m-5">
         <h1 class="display-4">Administrador de categorías</h1>
@@ -28,6 +29,11 @@
 </section>
   <hr class="my-4">
 <section class="section-table">
+  {if $error}
+                <div class="alert alert-danger">
+                    {$error}
+                </div>
+                {/if}
     <table class="table table-striped table-dark">
         <thead>
             <tr>
@@ -52,3 +58,7 @@
 <a type="button" href="administrador" class="btn-admin btn btn-lg btn-primary pl-4 pr-4">Volver</a>
 </aside>
 </section>
+{include 'footer.tpl'}
+<script src='js/adminCategory.js'></script>
+</body>
+</html>
