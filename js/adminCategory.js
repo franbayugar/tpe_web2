@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function removeAside() {
-        let containermodal = document.querySelector(".modal-overlay");
+        let containermodal = document.querySelector(".modal-result");
         let padre = containermodal.parentNode;
         padre.removeChild(containermodal);
         buttonsEvents();
