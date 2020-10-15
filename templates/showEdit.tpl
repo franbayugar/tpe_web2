@@ -38,7 +38,7 @@
 
         <div class="form-group">
             <label>Precio</label>
-            <input type="number" name="value" class="form-control" rows="2" value={$destination->precio} required></input>
+            <input type="number" name="value" class="form-control" rows="2" value={$destination->precio} required>
         </div>
 
         <button type="submit" class="btn-success btn btn-primary">Guardar</button>
@@ -57,14 +57,14 @@
                 <input type="hidden" name="id" value={$category->id}>
                 <div class="form-group">
                     <label>Nombre del paquete</label>
-                    <input name="package" type="text" class="form-control" value={$category->paquete}>
+                    <input name="package" type="text" class="form-control" value={$category->paquete} required>
                 </div>
             </div>
 
             <div class="col-6">
                 <div class="form-group">
                     <label>Alias paquete</label>
-                    <input type="text" name="aliaspackage" class="alias-category form-control" value={$category->aliaspaquete}>
+                    <input type="text" name="aliaspackage" class="alias-category form-control" value={$category->aliaspaquete} required>
                     </select>
                 </div>
             </div>

@@ -77,7 +77,9 @@ class AdminController
         AuthHelper::checkLoggedIn();
         // verifico campos obligatorios
         if (empty($_POST['place']) || empty($_POST['shortdescription']) || empty($_POST['description']) || empty($_POST['value']) || empty($_POST['category'])) {
-            $this->view->showError();
+            $destination = $this->travelModel->getAll();
+            $category = $this->categoryModel->getAll();
+            $this->view->showDestinationManage($category, $destination, 'Faltan datos obligatorios');
             die();
         }
 
@@ -103,7 +105,8 @@ class AdminController
 
         // verifico campos obligatorios
         if (empty($_POST['package']) || empty($_POST['aliaspackage'])) {
-            $this->view->showError('Faltan datos obligatorios');
+            $category = $this->categoryModel->getAll();
+            $this->view->showCategoryManage($category, 'Faltan datos obligatorios');
             die();
         }
         //guardo lo que llega del form por post en variables
@@ -184,7 +187,9 @@ class AdminController
 
         // verifico campos obligatorios
         if (empty($_POST['place']) || empty($_POST['shortdescription']) || empty($_POST['description']) || empty($_POST['value']) || empty($_POST['category'])  || empty($_POST['id'])) {
-            $this->view->showError();
+            $destination = $this->travelModel->getAll();
+            $category = $this->categoryModel->getAll();
+            $this->view->showDestinationManage($category, $destination, 'Faltan datos obligatorios');
             die();
         }
         //guardo los datos en variables
@@ -209,7 +214,8 @@ class AdminController
         AuthHelper::checkLoggedIn();
         // verifico campos obligatorios
         if (empty($_POST['package']) || empty($_POST['aliaspackage']) || empty($_POST['id'])) {
-            $this->view->showError();
+            $category = $this->categoryModel->getAll();
+            $this->view->showCategoryManage($category, 'Faltan datos obligatorios');
             die();
         }
 

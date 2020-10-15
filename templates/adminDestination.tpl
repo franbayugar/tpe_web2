@@ -43,6 +43,11 @@
 
     <button type="submit" class="btn btn-success">Agregar</button>
 </form>
+        {if $error}
+        <div class="alert alert-danger">
+            {$error}
+        </div>
+        {/if}
 </section>
   <hr class="my-4">
 <section class="section-table">

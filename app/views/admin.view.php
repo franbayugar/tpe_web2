@@ -44,10 +44,11 @@ class AdminView
     }
 
     //mostrar pagina para administrar destino
-    function showDestinationManage($category, $destination)
+    function showDestinationManage($category, $destination, $error = null)
     {
         $smarty = new Smarty();
         $smarty->assign('destination', $destination);
+        $smarty->assign('error', $error);
         $smarty->assign('category', $category);
         $smarty->display('templates/adminDestination.tpl');
     }
