@@ -55,7 +55,7 @@
     </table>
 </section>
 <aside class="d-flex justify-content-center p-5">
-<a type="button" href="administrador" class="btn-admin btn btn-lg btn-primary pl-4 pr-4">Volver</a>
+<a type="button" href="administrador" class="btn-admin btn btn-md btn-primary pl-4 pr-4">Volver</a>
 </aside>
 </section>
 {include 'footer.tpl'}

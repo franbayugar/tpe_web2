@@ -1,19 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
-    botones();
+    buttonsEvents();
     let container = document.querySelector("#travel-container");
 
-    function botones() {
+    function buttonsEvents() {
         let botones = document.querySelectorAll('.btn-filter');
         botones.forEach(boton => {
             boton.addEventListener("click", function (e) {
                 e.preventDefault();
                 let id = this.getAttribute("id");
-                call(id);
+                showFilter(id);
             })
         })
     }
 
-    async function call(id) {
+    async function showFilter(id) {
         container.innerHTML = '<div class="pb-3 pt-5"><h1 class="text-center">Cargando...</h1></div></div>';
         let response = await fetch(`filtrar/${id}`, {
             method: 'GET'
@@ -22,14 +22,16 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             container.innerHTML = html;
         }, 500);
-        botonBack();
-    }
+        if (id != 0) {
+            buttonSeeAll();
+        }
+        }
 
-    function botonBack() {
+    function buttonSeeAll() {
         setTimeout(() => {
             let btnSeeAll = document.querySelector('.btn-all');
             btnSeeAll.addEventListener('click', () => {
-                call(btnSeeAll.getAttribute("id"));
+                showFilter(btnSeeAll.getAttribute("id"));
             });
         }, 500);
 

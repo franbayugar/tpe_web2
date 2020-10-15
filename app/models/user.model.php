@@ -17,7 +17,7 @@ class UserModel
         return $db;
     }
 
-    //obtenre usuario por email
+    //obtener usuario por email
     function getUserByEmail($email)
     {
         //Enviar la consulta (prepare y execute)

@@ -1,19 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
-    botones();
+    buttonsEvents();
     let container = document.querySelector(".container-category");
 
-    function botones() {
+    function buttonsEvents() {
         let botones = document.querySelectorAll('.btn-edit');
         botones.forEach(boton => {
             boton.addEventListener("click", function (e) {
                 e.preventDefault();
                 let id = this.getAttribute("id");
-                call(id);
+                showEdit(id);
             })
         })
     }
 
-    async function call(id) {
+    async function showEdit(id) {
         let response = await fetch(`showedit/category/${id}`, {
             method: 'GET'
         });
@@ -22,14 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
         let btnBack = document.querySelector(".btn-back");
         btnBack.addEventListener("click", function (e) {
             e.preventDefault();
-            back();
+            removeAside();
         })
     }
 
-    function back() {
-        let containermodal = document.querySelector(".modal-result");
+    function removeAside() {
+        let containermodal = document.querySelector(".modal-overlay");
         let padre = containermodal.parentNode;
         padre.removeChild(containermodal);
-        botones();
+        buttonsEvents();
     }
 });
