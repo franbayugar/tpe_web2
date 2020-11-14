@@ -252,6 +252,14 @@ class AdminController
         $category = $this->categoryModel->getAll();
         $this->view->showCategoryManage($category);
     }
+
+    function registry()
+    {
+        //check login
+        AuthHelper::checkLogged();
+        //llamado a la vista
+        $this->view->showRegister();
+    }
     //funcion para desloguearse
     function logout()
     {

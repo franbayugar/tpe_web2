@@ -12,8 +12,12 @@
                 <div class="alert alert-danger">
                     {$error}
                 </div>
-                {/if}
+            {/if}
 </div>
+      <div class= "register-consult text-center mb-5"> 
+      <p>¿No estás registrado?</p>
+      <a class="btn btn-success" href="register">Registrate</a>
+      </div>
            
 
 {include 'footer.tpl'}

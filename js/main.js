@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (id != 0) {
             buttonSeeAll();
         }
-        }
+    }
 
     function buttonSeeAll() {
         setTimeout(() => {

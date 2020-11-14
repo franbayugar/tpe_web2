@@ -133,6 +133,10 @@ switch ($params[0]) {
         $controller = new AdminController();
         $controller->categoryManage();
         break;
+    case 'register':
+        $controller = new AdminController();
+        $controller->registry();
+        break;
     default:
         header("HTTP/1.0 404 Not Found");
         $controller = new MainController();

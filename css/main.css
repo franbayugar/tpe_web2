@@ -73,7 +73,6 @@
 .login-form form {
     border: 1px solid lightblue;
     padding: 30px;
-    padding-bottom: 50px;
 }
 
 .form-control {
@@ -150,7 +149,7 @@ table {
 
     /* FORM LOGIN */
     .login-form {
-        padding: 5%;
+        padding: 3%;
         padding-left: 35%;
         padding-right: 35%;
     }
@@ -158,7 +157,7 @@ table {
     .login-form form {
         border: 1px solid lightblue;
         padding: 30px;
-        padding-bottom: 50px;
+        padding-bottom: 20px;
     }
 
     .form-control {

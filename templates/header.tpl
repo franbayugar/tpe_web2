@@ -24,7 +24,6 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a class="nav-link" href="inicio">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="nosotros">Nosotros</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login">Administrador</a></li>
             {if isset($smarty.session.username)}
                 <li class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -33,9 +32,9 @@
                         <a class="dropdown-item" href="logout">Logout</a>
                     </div>
                 </li>
-                {/if}
-
-                </ul>
+                {else}
+                    <li class="nav-item"><a class="nav-link" href="login">Acceder</a></li>
+                                    {/if}
             </div>
         </div>
     </nav>

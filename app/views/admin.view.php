@@ -52,4 +52,10 @@ class AdminView
         $smarty->assign('category', $category);
         $smarty->display('templates/adminDestination.tpl');
     }
+
+    function showRegister()
+    {
+        $smarty = new Smarty();
+        $smarty->display('templates/register.tpl');
+    }
 }
