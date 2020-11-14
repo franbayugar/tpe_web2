@@ -137,6 +137,10 @@ switch ($params[0]) {
         $controller = new AdminController();
         $controller->registry();
         break;
+    case 'registry-user':
+        $controller = new AdminController();
+        $controller->addUser();
+        break;
     default:
         header("HTTP/1.0 404 Not Found");
         $controller = new MainController();

@@ -53,9 +53,10 @@ class AdminView
         $smarty->display('templates/adminDestination.tpl');
     }
 
-    function showRegister()
+    function showRegister($error = null)
     {
         $smarty = new Smarty();
+        $smarty->assign('error', $error);
         $smarty->display('templates/register.tpl');
     }
 }

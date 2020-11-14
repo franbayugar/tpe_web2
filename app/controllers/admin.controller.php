@@ -260,6 +260,44 @@ class AdminController
         //llamado a la vista
         $this->view->showRegister();
     }
+
+    function addUser()
+    {
+        //compruebo que no haya campos vacios
+        if (
+            empty($_POST['inputName']) || empty($_POST['inputMail']) || empty($_POST['password'])
+            || empty($_POST['password-confirm'])
+        ) {
+            $this->view->showRegister('Faltan datos obligatorios');
+            die();
+        }
+
+        //compruebo que las contraseñas coincidan
+        if ($_POST['password'] != $_POST['password-confirm']) {
+            $this->view->showRegister('Las contraseñas no coinciden');
+            die();
+        }
+
+        $username = $_POST['inputName'];
+        $email = $_POST['inputMail'];
+        $password = $_POST['password'];
+
+        //compruebo que la contraseña tenga mas de 6 caracteres
+        if (strlen($password) < 6) {
+            $this->view->showRegister('La contraseña debe ser de 6 o más caracteres');
+            die();
+        }
+        $user = $this->userModel->getUsers($username, $email);
+        //compruebo que no se quiera ingresar el mismo usuario o email
+        if ($user != null) {
+            $this->view->showRegister('El nombre de usuario o e-mail ya existen');
+            die();
+        }
+
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $this->userModel->registryUser($username, $email, $hash);
+        $this->view->showRegister('Te reegistraste');
+    }
     //funcion para desloguearse
     function logout()
     {

@@ -27,4 +27,20 @@ class UserModel
         //Obtengo la respuesta con un fetch
         return $query->fetch(PDO::FETCH_OBJ);
     }
+
+    //verificacion de existencia de user o email
+    function getUsers($username, $email)
+    {
+        $query = $this->db->prepare('SELECT * FROM usuario WHERE username = ? OR email = ?');
+        $query->execute([$username, $email]);
+
+        return $query->fetch(PDO::FETCH_OBJ);
+    }
+
+    //registro de usuario
+    function registryUser($username, $email, $password)
+    {
+        $query = $this->db->prepare('INSERT INTO usuario (username, email, password) VALUES (?,?,?)');
+        $query->execute([$username, $email, $password]);
+    }
 }
