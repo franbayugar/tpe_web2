@@ -37,19 +37,19 @@ class AdminController
     function loginUser()
     {
         //se verifican que los campos esten completos
-        if (!empty($_POST['user']) && !empty($_POST['password'])) {
-            $email = $_POST['user'];
+        if (!empty($_POST['mail']) && !empty($_POST['password'])) {
+            $email = $_POST['mail'];
             $password = $_POST['password'];
             $user = $this->userModel->getUserByEmail($email);
-
             //chequeamos que la password ingresada sea correcta y el usuario exista
             if ($user && (password_verify($password, $user->password))) {
                 //abro sesion y guardo al usuario
                 session_start();
                 $_SESSION['ID_USER'] = $user->id;
                 $_SESSION['username'] = $user->email;
+                $_SESSION['mail'] = $user->email;
+                $_SESSION['permission'] = $user->admin;
 
-                //redirijo a la pagina de administrador
                 header("Location: " . BASE_URL . 'administrador');
             } else {
                 //muestro el login con mensaje de error por usuario o pass incorrectos
@@ -64,8 +64,7 @@ class AdminController
     //mostrar pagina de administrador
     function showAdmin()
     {
-        //check login
-        AuthHelper::checkLoggedIn();
+        AuthHelper::checkAdmin();
         //llamado a la vista
         $this->view->showAdmin();
     }
@@ -74,7 +73,7 @@ class AdminController
     function addDestination()
     {
         //check login
-        AuthHelper::checkLoggedIn();
+        AuthHelper::checkAdmin();
         // verifico campos obligatorios
         if (empty($_POST['place']) || empty($_POST['shortdescription']) || empty($_POST['description']) || empty($_POST['value']) || empty($_POST['category'])) {
             $destination = $this->travelModel->getAll();
@@ -101,8 +100,7 @@ class AdminController
     function addCategory()
     {
         //check login
-        AuthHelper::checkLoggedIn();
-
+        AuthHelper::checkAdmin();
         // verifico campos obligatorios
         if (empty($_POST['package']) || empty($_POST['aliaspackage'])) {
             $category = $this->categoryModel->getAll();
@@ -124,7 +122,7 @@ class AdminController
     function deleteDestination($id)
     {
         //check login
-        AuthHelper::checkLoggedIn();
+        AuthHelper::checkAdmin();
         //enviamos por parametro la id del destino a borrar al modal travel
         $this->travelModel->remove($id);
         //redirigmos
@@ -135,7 +133,7 @@ class AdminController
     function deleteCategory($id)
     {
         //check login
-        AuthHelper::checkLoggedIn();
+        AuthHelper::checkAdmin();
         //enviamos por parametro la id de la categoria a borrar al modal category
         $destination = $this->travelModel->getAll();
         foreach ($destination as $place) {
@@ -155,7 +153,7 @@ class AdminController
     function showEdit($id, $filter)
     {
         //check login
-        AuthHelper::checkLoggedIn();
+        AuthHelper::checkAdmin();
 
         //verifico que es lo que pidio el usuario
         if ($filter == 'destination') {
@@ -183,7 +181,7 @@ class AdminController
     function updateDestination()
     {
         //check login
-        AuthHelper::checkLoggedIn();
+        AuthHelper::checkAdmin();
 
         // verifico campos obligatorios
         if (empty($_POST['place']) || empty($_POST['shortdescription']) || empty($_POST['description']) || empty($_POST['value']) || empty($_POST['category'])  || empty($_POST['id'])) {
@@ -211,7 +209,7 @@ class AdminController
     function updateCategory()
     {
         //check login
-        AuthHelper::checkLoggedIn();
+        AuthHelper::checkAdmin();
         // verifico campos obligatorios
         if (empty($_POST['package']) || empty($_POST['aliaspackage']) || empty($_POST['id'])) {
             $category = $this->categoryModel->getAll();
@@ -236,7 +234,7 @@ class AdminController
     function destinationManage()
     {
         //check login
-        AuthHelper::checkLoggedIn();
+        AuthHelper::checkAdmin();
 
         $destination = $this->travelModel->getAll();
         $category = $this->categoryModel->getAll();
@@ -247,7 +245,7 @@ class AdminController
     function categoryManage()
     {
         //check login
-        AuthHelper::checkLoggedIn();
+        AuthHelper::checkAdmin();
 
         $category = $this->categoryModel->getAll();
         $this->view->showCategoryManage($category);
@@ -264,8 +262,10 @@ class AdminController
     function addUser()
     {
         //compruebo que no haya campos vacios
+        AuthHelper::checkLogged();
+
         if (
-            empty($_POST['inputName']) || empty($_POST['inputMail']) || empty($_POST['password'])
+            empty($_POST['user']) || empty($_POST['mail']) || empty($_POST['password'])
             || empty($_POST['password-confirm'])
         ) {
             $this->view->showRegister('Faltan datos obligatorios');
@@ -278,8 +278,8 @@ class AdminController
             die();
         }
 
-        $username = $_POST['inputName'];
-        $email = $_POST['inputMail'];
+        $username = $_POST['user'];
+        $email = $_POST['mail'];
         $password = $_POST['password'];
 
         //compruebo que la contraseña tenga mas de 6 caracteres
@@ -296,7 +296,7 @@ class AdminController
 
         $hash = password_hash($password, PASSWORD_DEFAULT);
         $this->userModel->registryUser($username, $email, $hash);
-        $this->view->showRegister('Te reegistraste');
+        $this->loginUser();
     }
     //funcion para desloguearse
     function logout()

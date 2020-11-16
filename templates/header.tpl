@@ -24,7 +24,11 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a class="nav-link" href="inicio">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="nosotros">Nosotros</a></li>
+
             {if isset($smarty.session.username)}
+                {if $smarty.session.permission eq 1}
+                <li class="nav-item"><a class="nav-link" href="administrador">Administrador</a></li>
+                {/if}
                 <li class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {$smarty.session.username}  </button>

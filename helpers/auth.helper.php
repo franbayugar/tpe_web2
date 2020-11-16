@@ -24,11 +24,21 @@ class AuthHelper
         session_start();
         if (isset($_SESSION['ID_USER'])) {
             header("Location: " . BASE_URL . 'administrador');
-            return false;
+            die();
         } else {
             return true;
         }
     }
+
+    public static function checkAdmin()
+    {
+        session_start();
+        if ($_SESSION['permission'] != 1) {
+            header("Location: " . BASE_URL . 'inicio');
+            die();
+        }
+    }
+
 
     //funcion para desloguear
     public static function logout()
@@ -36,5 +46,6 @@ class AuthHelper
         session_start();
         session_destroy();
         header("Location: " . BASE_URL . 'login');
+        die();
     }
 }

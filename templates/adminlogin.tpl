@@ -2,8 +2,8 @@
 <div class="login-form">
         <form class="form-signin" action="verify" method="POST">
         <h1 class="h3 mb-3 font-weight-normal">Ingrese sus datos:</h1>
-        <label for="inputEmail" class="sr-only" >Usuario</label>
-        <input type="text" class="form-control" name="user" placeholder="Usuario" required>
+        <label for="inputEmail" class="sr-only" >Mail</label>
+        <input type="text" class="form-control" name="mail" placeholder="Mail" required>
         <label for="inputPassword" class="sr-only">Contraseña</label>
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Contraseña" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Acceder</button>
