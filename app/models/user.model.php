@@ -18,6 +18,16 @@ class UserModel
     }
 
     //obtener usuario por email
+
+    function getAll()
+    {
+        $query = $this->db->prepare('SELECT * FROM usuario');
+        $query->execute();
+
+        //Obtengo la respuesta con un fetch
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
     function getUserByEmail($email)
     {
         //Enviar la consulta (prepare y execute)
@@ -34,7 +44,7 @@ class UserModel
         $query = $this->db->prepare('SELECT * FROM usuario WHERE username = ? OR email = ?');
         $query->execute([$username, $email]);
 
-        return $query->fetch(PDO::FETCH_OBJ);
+        return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
     //registro de usuario

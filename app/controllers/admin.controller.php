@@ -298,6 +298,14 @@ class AdminController
         $this->userModel->registryUser($username, $email, $hash);
         $this->loginUser();
     }
+
+    function usersPage()
+    {
+        $users = $this->userModel->getAll();
+        $this->view->showUsersManage($users);
+        die();
+    }
+
     //funcion para desloguearse
     function logout()
     {

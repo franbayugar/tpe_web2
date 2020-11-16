@@ -141,6 +141,10 @@ switch ($params[0]) {
         $controller = new AdminController();
         $controller->addUser();
         break;
+    case 'usersmanage':
+        $controller = new AdminController();
+        $controller->usersPage();
+        break;
     default:
         header("HTTP/1.0 404 Not Found");
         $controller = new MainController();
