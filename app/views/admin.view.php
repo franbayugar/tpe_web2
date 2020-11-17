@@ -53,10 +53,11 @@ class AdminView
         $smarty->display('templates/adminDestination.tpl');
     }
 
-    function showUsersManage($users)
+    function showUsersManage($users, $error = null)
     {
         $smarty = new Smarty();
         $smarty->assign('users', $users);
+        $smarty->assign('error', $error);
         $smarty->display('templates/adminUsers.tpl');
     }
 

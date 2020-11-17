@@ -53,4 +53,10 @@ class UserModel
         $query = $this->db->prepare('INSERT INTO usuario (username, email, password) VALUES (?,?,?)');
         $query->execute([$username, $email, $password]);
     }
+
+    function remove($id)
+    {
+        $query = $this->db->prepare('DELETE FROM usuario WHERE id = ?');
+        $query->execute([$id]);
+    }
 }

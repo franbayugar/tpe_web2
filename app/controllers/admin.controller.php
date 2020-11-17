@@ -135,14 +135,13 @@ class AdminController
         //check login
         AuthHelper::checkAdmin();
         //enviamos por parametro la id de la categoria a borrar al modal category
-        $destination = $this->travelModel->getAll();
-        foreach ($destination as $place) {
-            if ($id == $place->id_categoria) {
-                $category = $this->categoryModel->getAll();
-                $this->view->showCategoryManage($category, "No se puede eliminar la categoría '{$place->paquete}' porque está en uso");
-                die();
-            }
+        $comprobation = $this->travelModel->getByCategory($id);
+        if ($comprobation) {
+            $category = $this->categoryModel->getAll();
+            $this->view->showCategoryManage($category, "No se puede eliminar la categoría porque está en uso");
+            die();
         }
+
         $this->categoryModel->remove($id);
 
         //redirigmos
@@ -261,8 +260,8 @@ class AdminController
 
     function addUser()
     {
-        //compruebo que no haya campos vacios
         AuthHelper::checkLogged();
+        //compruebo que no haya campos vacios
 
         if (
             empty($_POST['user']) || empty($_POST['mail']) || empty($_POST['password'])
@@ -301,9 +300,26 @@ class AdminController
 
     function usersPage()
     {
+        AuthHelper::checkAdmin();
+
         $users = $this->userModel->getAll();
         $this->view->showUsersManage($users);
         die();
+    }
+
+    function deleteUser($id)
+    {
+        //check login
+        AuthHelper::checkAdmin();
+        //enviamos por parametro la id del user a borrar
+        if ($id != $_SESSION['ID_USER']) {
+            $this->userModel->remove($id);
+            //redirigmos
+            header("Location: " . BASE_URL . 'usersmanage');
+        } else { //en caso de estar la sesion iniciada enviamos un mensaje notificando
+            $users = $this->userModel->getAll();
+            $this->view->showUsersManage($users, 'No se puede eliminar una cuenta con la sesión iniciada');
+        }
     }
 
     //funcion para desloguearse

@@ -6,7 +6,11 @@
       <hr class="my-4">
 
 <section class="section-table">
-
+        {if $error}
+        <div class="alert alert-danger">
+            {$error}
+        </div>
+        {/if}
     <table class="table table-striped table-dark">
         <thead>
             <tr>
@@ -28,7 +32,7 @@
                     {/if}
                     </td>
                     <td><a class='btn-edit btn btn-warning btn-sm' id='{$user->id}'>Editar</a>
-                    <a class='btn btn-danger btn-sm' href='eliminar/categoria/{$user->id}'>Eliminar</a></td>
+                    <a class='btn btn-danger btn-sm' href='eliminar-usuario/{$user->id}'>Eliminar</a></td>
                 </tr>
             {/foreach}
         </tbody>

@@ -145,6 +145,11 @@ switch ($params[0]) {
         $controller = new AdminController();
         $controller->usersPage();
         break;
+    case 'eliminar-usuario':
+        $controller = new AdminController();
+        $id = $params[1];
+        $controller->deleteUser($id);
+        break;
     default:
         header("HTTP/1.0 404 Not Found");
         $controller = new MainController();

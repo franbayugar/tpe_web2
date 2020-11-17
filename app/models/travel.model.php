@@ -53,7 +53,7 @@ class TravelModel
         $query = $this->db->prepare('SELECT *, destino.id as id_destino FROM `destino` INNER JOIN `categoria` ON `id_categoria` = categoria.id WHERE id_categoria = ?');
         $query->execute([$id]);
 
-        // Obtengo la respuesta con un fetchAll
+        // Obtengo la respuesta con un fetch
         $destination = $query->fetchAll(PDO::FETCH_OBJ); //destino
 
         //retorno lo que trae

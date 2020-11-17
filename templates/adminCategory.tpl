@@ -26,15 +26,15 @@
     </div>
     <button type="submit" class="btn btn-success">Agregar</button>
 </form>
+
+</section>
+  <hr class="my-4">
+<section class="section-table">
         {if $error}
         <div class="alert alert-danger">
             {$error}
         </div>
         {/if}
-</section>
-  <hr class="my-4">
-<section class="section-table">
-
     <table class="table table-striped table-dark">
         <thead>
             <tr>
