@@ -67,4 +67,11 @@ class AdminView
         $smarty->assign('error', $error);
         $smarty->display('templates/register.tpl');
     }
+
+    function showEditUser($user)
+    {
+        $smarty = new Smarty();
+        $smarty->assign('user', $user);
+        $smarty->display('templates/showEditUser.tpl');
+    }
 }

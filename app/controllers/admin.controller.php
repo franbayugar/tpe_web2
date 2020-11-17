@@ -48,7 +48,7 @@ class AdminController
                 $_SESSION['ID_USER'] = $user->id;
                 $_SESSION['username'] = $user->email;
                 $_SESSION['mail'] = $user->email;
-                $_SESSION['permission'] = $user->admin;
+                $_SESSION['permission'] = $user->permission;
 
                 header("Location: " . BASE_URL . 'administrador');
             } else {
@@ -138,7 +138,7 @@ class AdminController
         $comprobation = $this->travelModel->getByCategory($id);
         if ($comprobation) {
             $category = $this->categoryModel->getAll();
-            $this->view->showCategoryManage($category, "No se puede eliminar la categoría porque está en uso");
+            $this->view->showCategoryManage($category, "No se puede eliminar la categoría '$comprobation->paquete' porque está en uso");
             die();
         }
 
@@ -320,6 +320,37 @@ class AdminController
             $users = $this->userModel->getAll();
             $this->view->showUsersManage($users, 'No se puede eliminar una cuenta con la sesión iniciada');
         }
+    }
+
+    function showPermission($id)
+    {
+        //check login
+        AuthHelper::checkAdmin();
+        //verifico que es lo que pidio el usuario
+        $user = $this->userModel->getUserById($id);
+        //chequeo que lo pedido exista en la base de datos
+        if ($user != null) {
+            $this->view->showEditUser($user);
+        } else {
+            $this->view->showError();
+        }
+    }
+
+    function updatePermission()
+    {
+        AuthHelper::checkAdmin();
+
+
+        if (!isset($_POST['permission']) || !isset($_POST['id']) || ($_SESSION['ID_USER'] == $_POST['id'])) {
+            $users = $this->userModel->getAll();
+            $this->view->showUsersManage($users, 'No se pueden editar los permisos de una cuenta con la sesión iniciada');
+            die();
+        }
+        $permission = $_POST['permission'];
+        $id = $_POST['id'];
+
+        $this->userModel->updatePermission($permission, $id);
+        header("Location: " . BASE_URL . "usersmanage");
     }
 
     //funcion para desloguearse

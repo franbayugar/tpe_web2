@@ -150,6 +150,15 @@ switch ($params[0]) {
         $id = $params[1];
         $controller->deleteUser($id);
         break;
+    case 'permisos':
+        $controller = new AdminController();
+        $id = $params[1];
+        $controller->showPermission($id);
+        break;
+    case 'editarpermisos':
+        $controller = new AdminController();
+        $controller->updatePermission();
+        break;
     default:
         header("HTTP/1.0 404 Not Found");
         $controller = new MainController();

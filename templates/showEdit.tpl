@@ -65,7 +65,6 @@
                 <div class="form-group">
                     <label>Alias paquete</label>
                     <input type="text" name="aliaspackage" class="alias-category form-control" value={$category->aliaspaquete} required>
-                    </select>
                 </div>
             </div>
         </div>

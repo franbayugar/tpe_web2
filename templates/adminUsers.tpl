@@ -1,10 +1,9 @@
 {include 'header.tpl'}
-<section class="container-category">
+<section class= "container-user">
     <div class="m-5">
         <h1 class="display-4">Administrador de usuarios</h1>
     </div>
       <hr class="my-4">
-
 <section class="section-table">
         {if $error}
         <div class="alert alert-danger">
@@ -25,13 +24,14 @@
                 <tr>
                     <td>{$user->username}</td>
                     <td>{$user->email}</td>
-                    <td>{if $user->admin eq 1} 
+                    <td>{if $user->permission eq 1} 
                     Administrador
                     {else}
                     Usuario sin permisos 
                     {/if}
                     </td>
-                    <td><a class='btn-edit btn btn-warning btn-sm' id='{$user->id}'>Editar</a>
+                    <td>
+                    <a class='btn-edit btn btn-success btn-sm' id='{$user->id}'>Editar</a>
                     <a class='btn btn-danger btn-sm' href='eliminar-usuario/{$user->id}'>Eliminar</a></td>
                 </tr>
             {/foreach}
@@ -43,5 +43,6 @@
 </aside>
 </section>
 {include 'footer.tpl'}
+<script src="js/adminUser.js"></script>
 </body>
 </html>

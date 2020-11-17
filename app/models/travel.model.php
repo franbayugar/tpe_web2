@@ -54,7 +54,7 @@ class TravelModel
         $query->execute([$id]);
 
         // Obtengo la respuesta con un fetch
-        $destination = $query->fetchAll(PDO::FETCH_OBJ); //destino
+        $destination = $query->fetch(PDO::FETCH_OBJ); //destino
 
         //retorno lo que trae
         return $destination;

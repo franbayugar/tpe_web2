@@ -4,7 +4,6 @@
         <h1 class="display-4">Administrador de categorías</h1>
     </div>
       <hr class="my-4">
-
 <section class="container">
         <h4>Agregue una nueva categoría:</h4>
 <form action="insertar/categoria" method="POST" class="my-4">

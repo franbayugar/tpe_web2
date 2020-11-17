@@ -28,6 +28,17 @@ class UserModel
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
+
+    function getUserById($id)
+    {
+        //Enviar la consulta (prepare y execute)
+        $query = $this->db->prepare('SELECT * FROM usuario WHERE id = ?');
+        $query->execute([$id]);
+
+        //Obtengo la respuesta con un fetch
+        return $query->fetch(PDO::FETCH_OBJ);
+    }
+
     function getUserByEmail($email)
     {
         //Enviar la consulta (prepare y execute)
@@ -52,6 +63,14 @@ class UserModel
     {
         $query = $this->db->prepare('INSERT INTO usuario (username, email, password) VALUES (?,?,?)');
         $query->execute([$username, $email, $password]);
+    }
+
+    function updatePermission($permission, $id)
+    {
+        $query = $this->db->prepare('UPDATE usuario 
+        SET permission = ?
+        WHERE id = ?');
+        $query->execute([$permission, $id]);
     }
 
     function remove($id)
