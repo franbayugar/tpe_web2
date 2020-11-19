@@ -135,7 +135,7 @@ class AdminController
         //check login
         AuthHelper::checkAdmin();
         //enviamos por parametro la id de la categoria a borrar al modal category
-        $comprobation = $this->travelModel->getByCategory($id);
+        $comprobation = $this->travelModel->getOneByCategory($id);
         if ($comprobation) {
             $category = $this->categoryModel->getAll();
             $this->view->showCategoryManage($category, "No se puede eliminar la categoría '$comprobation->paquete' porque está en uso");
@@ -271,6 +271,12 @@ class AdminController
             die();
         }
 
+        //compruebo que el mail ingresado sea valido
+        if (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
+            $this->view->showRegister('Mail inválido');
+            die();
+        }
+
         //compruebo que las contraseñas coincidan
         if ($_POST['password'] != $_POST['password-confirm']) {
             $this->view->showRegister('Las contraseñas no coinciden');
@@ -339,7 +345,6 @@ class AdminController
     function updatePermission()
     {
         AuthHelper::checkAdmin();
-
 
         if (!isset($_POST['permission']) || !isset($_POST['id']) || ($_SESSION['ID_USER'] == $_POST['id'])) {
             $users = $this->userModel->getAll();

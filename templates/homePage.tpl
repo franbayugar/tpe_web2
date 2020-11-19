@@ -15,7 +15,6 @@
             <h4 class="text-center pb-5 pt-5 h1">Observá todos los paquetes que tenemos para vos:</h4>
 {include 'homeFilter.tpl'}
     </div>
-    </div>
 </section>
 {include 'footer.tpl'}
 <script src="js/main.js"></script>

@@ -46,8 +46,22 @@ class TravelModel
         return $destination;
     }
 
-    //obtener un destino por categoria
+    //obtener varios destino por categoria
     function getByCategory($id)
+    {
+        //Enviar la consulta (prepare y execute)
+        $query = $this->db->prepare('SELECT *, destino.id as id_destino FROM `destino` INNER JOIN `categoria` ON `id_categoria` = categoria.id WHERE id_categoria = ?');
+        $query->execute([$id]);
+
+        // Obtengo la respuesta con un fetch
+        $destination = $query->fetchAll(PDO::FETCH_OBJ); //destino
+
+        //retorno lo que trae
+        return $destination;
+    }
+
+    //obtener un destino por categoria
+    function getOneByCategory($id)
     {
         //Enviar la consulta (prepare y execute)
         $query = $this->db->prepare('SELECT *, destino.id as id_destino FROM `destino` INNER JOIN `categoria` ON `id_categoria` = categoria.id WHERE id_categoria = ?');
@@ -59,6 +73,7 @@ class TravelModel
         //retorno lo que trae
         return $destination;
     }
+
 
     //insertar datos
     function insert($place, $shortdescription, $description, $value, $category)
