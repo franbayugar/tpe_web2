@@ -77,5 +77,7 @@ class UserModel
     {
         $query = $this->db->prepare('DELETE FROM usuario WHERE id = ?');
         $query->execute([$id]);
+
+        return $this->db->lastInsertId();
     }
 }

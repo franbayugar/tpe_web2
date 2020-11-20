@@ -260,6 +260,7 @@ class AdminController
 
     function addUser()
     {
+        //CONSULTAR
         AuthHelper::checkLogged();
         //compruebo que no haya campos vacios
 

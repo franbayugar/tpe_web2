@@ -33,7 +33,7 @@ class AuthHelper
     public static function checkAdmin()
     {
         session_start();
-        if ($_SESSION['permission'] != 1) {
+        if ($_SESSION['permission'] != 1) { // CONSULTAR 
             header("Location: " . BASE_URL . 'inicio');
             die();
         }
