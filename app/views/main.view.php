@@ -41,6 +41,13 @@ class MainView
         $smarty->display('templates/showDetail.tpl');
     }
 
+    function showCommentsCSR($destination)
+    {
+        $smarty = new Smarty();
+        $smarty->assign('destination', $destination);
+        $smarty->display('templates/commentsList_csr.tpl');
+    }
+
     //mostrar error en filtro si llega por parametro o en alguna pagina en general si llega vacio
     function showError($error = null)
     {

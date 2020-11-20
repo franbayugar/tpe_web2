@@ -9,7 +9,19 @@
     <p class="font-weight-bold">{$destination->aliaspaquete}</p>
     <p class="font-italic">{$destination->descripcion}</p>
         <hr class="my-4">
-
+            <table>
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                    </tr>
+                </thead>
+                <tbody id="comment-list">
+                    <tr>
+                        <td>Uribe</td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr class="my-4">
     <form class= "coment-box">
         <div class="form-group row">
         <div class= "col-8">
@@ -40,5 +52,6 @@
     </div>
 </section>
 {include 'footer.tpl'}
+<script src="js/comments.js"></script>
 </body>
 </html>

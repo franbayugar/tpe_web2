@@ -20,8 +20,15 @@ class CommentModel
 
     function getAll($parametros)
     {
+        $sql = 'SELECT comentario.id, comentario.descripcion, comentario.puntuacion, usuario.username, destino.destino FROM `comentario` INNER JOIN `usuario` ON `id_usuario` = usuario.id INNER JOIN `destino` ON `id_destino` = destino.id';
+        if (isset($parametros['order'])) {
+            $sql .= ' ORDER BY ' . $parametros['order'];
+            if (isset($parametros['sort'])) {
+                $sql .= ' ' . $parametros['sort'];
+            }
+        }
         //Enviar la consulta (prepare y execute)
-        $query = $this->db->prepare('SELECT comentario.id, comentario.descripcion, comentario.puntuacion, usuario.username, destino.destino FROM `comentario` INNER JOIN `usuario` ON `id_usuario` = usuario.id INNER JOIN `destino` ON `id_destino` = destino.id');
+        $query = $this->db->prepare($sql);
         $query->execute();
 
         //Obtengo la respuesta con un fetchAll 

@@ -66,11 +66,15 @@ class MainController
    {
       $destination = $this->travelModel->getOne($id);
       if ($destination != null) {
-         $this->view->showMore($destination);
+         $this->view->showCommentsCSR($destination);
       } else {
          $this->showError();
          die();
       }
+   }
+
+   function showCommentsCSR()
+   {
    }
 
    function showError()

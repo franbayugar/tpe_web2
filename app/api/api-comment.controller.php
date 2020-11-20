@@ -77,4 +77,9 @@ class ApiCommentController
             $this->view->response("El comentario no pudo insertarse", 500);
         }
     }
+
+    function show404($params = null)
+    {
+        $this->view->response('El recurso solicitaod no existe', 404);
+    }
 }

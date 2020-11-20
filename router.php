@@ -159,6 +159,10 @@ switch ($params[0]) {
         $controller = new AdminController();
         $controller->updatePermission();
         break;
+    case 'listar-csr':
+        $controller = new MainController();
+        $controller->showCommentsCSR();
+        break;
     default:
         header("HTTP/1.0 404 Not Found");
         $controller = new MainController();
