@@ -38,6 +38,19 @@ class CommentModel
         return $comments;
     }
 
+    function getByDestinationID($id)
+    {
+        //Enviar la consulta (prepare y execute)
+        $query = $this->db->prepare('SELECT comentario.id, comentario.descripcion, comentario.puntuacion, usuario.username, destino.destino FROM `comentario` INNER JOIN `usuario` ON `id_usuario` = usuario.id INNER JOIN `destino` ON `id_destino` = destino.id WHERE id_destino = ?');
+        $query->execute([$id]);
+
+        //Obtengo la respuesta con un fetchAll 
+        $comments = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de comentarios
+
+        //retorno lo que trae
+        return $comments;
+    }
+
     function getOne($id)
     {
         //Enviar la consulta (prepare y execute)
@@ -45,7 +58,7 @@ class CommentModel
         $query->execute([$id]);
 
         //Obtengo la respuesta con un fetchAll 
-        $comments = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de comentarios
+        $comments = $query->fetch(PDO::FETCH_OBJ); // arreglo de comentarios
 
         //retorno lo que trae
         return $comments;

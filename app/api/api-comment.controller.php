@@ -38,6 +38,17 @@ class ApiCommentController
         $this->view->response($comments, 200);
     }
 
+    function getDestinationByID($params = null)
+    {
+        $idDestination = $params[':ID'];
+        $comments = $this->model->getByDestinationID($idDestination);
+        if ($comments) {
+            $this->view->response($comments, 200);
+        } else {
+            $this->view->response("El comentario con el id=$idDestination no existe", 404);
+        }
+    }
+
     function getOne($params = null)
     {
         $idComment = $params[':ID'];

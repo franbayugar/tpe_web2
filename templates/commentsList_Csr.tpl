@@ -9,20 +9,12 @@
     <p class="font-weight-bold">{$destination->aliaspaquete}</p>
     <p class="font-italic">{$destination->descripcion}</p>
         <hr class="my-4">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Usuario</th>
-                    </tr>
-                </thead>
-                <tbody id="comment-list">
-                    <tr>
-                        <td>Uribe</td>
-                    </tr>
-                </tbody>
-            </table>
-            <hr class="my-4">
-    <form class= "comment-box">
+        <div class="comment-box">
+            <h4>Opiniones:</h4>
+            {include file="vue/commentList.vue"}
+        </div>
+        <hr class="my-4">
+    <form class= "form-comment">
         <div class="form-group row">
         <div class= "col-8">
                 <label for="FormControlTextarea1">
@@ -30,7 +22,6 @@
                 </label>
             <input type="hidden" name="id_user" value={$smarty.session.ID_USER}>
             <input type="hidden" name="id_destino" value={$destination->id_destino}>
-
         </div>
         <div class= "col-4 d-flex justify-content-end">
           <p class="clasificacion">

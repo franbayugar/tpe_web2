@@ -1,19 +1,27 @@
 "use strict";
 
+const app = new Vue({
+    el: "#app",
+    data: {
+        comments: [],
+    }
+});
 document.addEventListener("DOMContentLoaded", () => {
     getComments();
 
-    document.querySelector(".comment-box").addEventListener('submit', function (e) {
+    document.querySelector(".form-comment").addEventListener('submit', function (e) {
         e.preventDefault();
         addComment();
     });
 
     async function getComments() {
         try {
-            const response = await fetch('api/comentarios');
+            let id_destino = document.querySelector('input[name="id_destino"]').value;
+            const response = await fetch(`api/comentarios/destino/${id_destino}`);
             if (response.ok) {
-                const comments = await response.json();
-                renderComments(comments);
+                const commentsResponse = await response.json();
+                app.comments = commentsResponse;
+
             }
             else {
                 console.log('error');
@@ -24,12 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function renderComments(comments) {
-        const container = document.querySelector('#comment-list');
-        for (let comment of comments) {
-            console.log(comment.descripcion);
-        }
-    }
 
     async function addComment() {
         const data = {
@@ -51,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             );
             const comment = response.json();
-            getComments();
 
         }
         catch (e) {
