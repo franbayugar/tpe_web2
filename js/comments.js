@@ -8,11 +8,13 @@ const app = new Vue({
 });
 document.addEventListener("DOMContentLoaded", () => {
     getComments();
-
-    document.querySelector(".form-comment").addEventListener('submit', function (e) {
-        e.preventDefault();
-        addComment();
-    });
+    let id_user = document.querySelector('input[name="id_user"]').value;
+    if (id_user != 0) {
+        document.querySelector(".form-comment").addEventListener('submit', function (e) {
+            e.preventDefault();
+            addComment();
+        })
+    };
 
     async function getComments() {
         try {
@@ -53,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             );
             const comment = response.json();
-
+            getComments();
         }
         catch (e) {
             console.log(e);

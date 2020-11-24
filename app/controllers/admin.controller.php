@@ -46,7 +46,7 @@ class AdminController
                 //abro sesion y guardo al usuario
                 session_start();
                 $_SESSION['ID_USER'] = $user->id;
-                $_SESSION['username'] = $user->email;
+                $_SESSION['username'] = $user->username;
                 $_SESSION['mail'] = $user->email;
                 $_SESSION['permission'] = $user->permission;
 
