@@ -22,12 +22,15 @@
                 </tbody>
             </table>
             <hr class="my-4">
-    <form class= "coment-box">
+    <form class= "comment-box">
         <div class="form-group row">
         <div class= "col-8">
                 <label for="FormControlTextarea1">
                     <h4>Dejá tu comentario y puntuación:</h4>
                 </label>
+            <input type="hidden" name="id_user" value={$smarty.session.ID_USER}>
+            <input type="hidden" name="id_destino" value={$destination->id_destino}>
+
         </div>
         <div class= "col-4 d-flex justify-content-end">
           <p class="clasificacion">
@@ -43,8 +46,8 @@
             --><label for="radio5">★</label>
          </p>
         </div>
-        <textarea class="form-control" name="comentario" id="FormControlTextarea1" rows="3"></textarea>
-        <button class="btn btn-md btn-primary">Enviar</button>
+        <textarea class="form-control" name="comentario" id="comment" rows="3" required></textarea>
+        <button id="btn-enviar" class="btn btn-md btn-primary">Enviar</button>
         </div>    
   </form>
 

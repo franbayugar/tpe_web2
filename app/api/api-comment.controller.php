@@ -19,7 +19,7 @@ class ApiCommentController
     //convierte variable en json
     function getData()
     {
-        return json_encode($this->data);
+        return json_decode($this->data);
     }
 
     //traemos todos los comentarios
@@ -64,12 +64,12 @@ class ApiCommentController
     {
         $body = $this->getData();
 
-        $comment = $this->body->comment;
-        $idUser = $this->body->iduser;
-        $score = $this->body->score;
-        $idDestination = $this->body->destination;
+        $comment = $body->descripcion;
+        $idUser = $body->id_usuario;
+        $score = $body->puntuacion;
+        $idDestination = $body->id_destino;
 
-        $idComment = $this->model->insertComment($comment, $idUser, $score, $idDestination);
+        $idComment = $this->model->insertComment($comment, $score, $idUser, $idDestination);
 
         if ($idComment > 0) {
             $this->view->response("El comentario con el id=$idComment se insertó exitosamente", 200);

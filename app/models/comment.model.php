@@ -62,7 +62,8 @@ class CommentModel
     function insertComment($comment, $score, $idUser, $idDestination)
     {
         //Enviar la consulta (prepare y execute)
-        $query = $this->db->prepare('INSERT INTO comentario (descripcion, puntuacion, id_usuario, id_desitno) VALUES (?,?,?,?)');
+        $query = $this->db->prepare('INSERT INTO comentario (descripcion, puntuacion, id_usuario, id_destino) VALUES (?,?,?,?)');
         $query->execute([$comment, $score, $idUser, $idDestination]);
+        return $query->rowCount();
     }
 }
