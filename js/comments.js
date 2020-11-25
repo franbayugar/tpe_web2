@@ -12,7 +12,25 @@ const app = new Vue({
                 "method": 'DELETE'
             });
             console.log(comments);
-            getComments();
+            this.getComments();
+        },
+        getComments: async function () {
+            try {
+                let id_rol = document.querySelector('input[name="rol_user"]').value;
+                app.rol = id_rol;
+                let id_destino = document.querySelector('input[name="id_destino"]').value;
+                const response = await fetch(`api/comentarios/${id_destino}`);
+                if (response.ok) {
+                    const commentsResponse = await response.json();
+                    app.comments = commentsResponse;
+                }
+                else {
+                    console.log('error');
+                }
+            }
+            catch (e) {
+                console.log(e);
+            }
         }
     }
 });
@@ -25,9 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
             addComment();
         })
     };
-    function saludo(id) {
-        alert(id);
-    }
+
     async function getComments() {
         try {
             let id_rol = document.querySelector('input[name="rol_user"]').value;
@@ -75,11 +91,4 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(e);
         }
     }
-
-    async function deleteComment(id) {
-
-    }
-
-
-
 });

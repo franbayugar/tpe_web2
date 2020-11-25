@@ -1,6 +1,7 @@
 <?php
 require_once 'app/models/comment.model.php';
 require_once 'app/api/api-comment.view.php';
+include_once 'helpers/auth.helper.php';
 
 
 class ApiCommentController
@@ -62,6 +63,8 @@ class ApiCommentController
 
     function delete($params = null)
     {
+        AuthHelper::checkAdmin();
+
         $idComment = $params[':ID'];
         $comprobation = $this->model->deleteComment($idComment);
         if ($comprobation) {
