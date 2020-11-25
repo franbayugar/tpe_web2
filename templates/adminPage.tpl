@@ -2,7 +2,7 @@
 {include 'header.tpl'}
 <section class="container p-1 container-admin ">
 <div class="jumbotron m-4">
-  <h1 class="display-4">Bienvenido, Admin</h1>
+  <h1 class="display-4">Bienvenido, {$smarty.session.username}</h1>
   <p class="lead">Seleccione lo que desea administrar.</p>
   <hr class="my-4">
   <div class="row">

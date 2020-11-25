@@ -4,6 +4,16 @@ const app = new Vue({
     el: "#app",
     data: {
         comments: [],
+        rol: 0
+    },
+    methods: {
+        remove: async function (id) {
+            const comments = await fetch(`api/comentario/${id}`, {
+                "method": 'DELETE'
+            });
+            console.log(comments);
+            getComments();
+        }
     }
 });
 document.addEventListener("DOMContentLoaded", () => {
@@ -15,11 +25,15 @@ document.addEventListener("DOMContentLoaded", () => {
             addComment();
         })
     };
-
+    function saludo(id) {
+        alert(id);
+    }
     async function getComments() {
         try {
+            let id_rol = document.querySelector('input[name="rol_user"]').value;
+            app.rol = id_rol;
             let id_destino = document.querySelector('input[name="id_destino"]').value;
-            const response = await fetch(`api/comentarios/destino/${id_destino}`);
+            const response = await fetch(`api/comentarios/${id_destino}`);
             if (response.ok) {
                 const commentsResponse = await response.json();
                 app.comments = commentsResponse;
@@ -47,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(chivo);
 
         try {
-            const response = await fetch('api/comentarios',
+            const response = await fetch('api/comentario',
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -61,4 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(e);
         }
     }
+
+    async function deleteComment(id) {
+
+    }
+
+
+
 });
