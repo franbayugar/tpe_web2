@@ -2,7 +2,7 @@
 <aside class="modal-result d-flex justify-content-center align-items-center">
     <div class="card-modal bg-white p-5 rounded-left rounded-right">
         <h3>Modificar destino</h3>
-        <form action="editar/destino" method="POST" class="my-4">
+        <form action="editar/destino" method="POST" class="my-4" enctype="multipart/form-data">
         <div class="row">
             <div class="col-9">
                 <div class="form-group">
@@ -41,6 +41,10 @@
             <input type="number" name="value" class="form-control" rows="2" value={$destination->precio} required>
         </div>
 
+        <div class="form-group d-flex flex-column">
+            <label>Imagen:</label>
+            <input type="file" name="imageUpload" id="imageToUpload" class="mt-2 mb-2" required>
+        </div>
         <button type="submit" class="btn-success btn btn-primary">Guardar</button>
         <button id="btn-back" class="btn-back btn btn-primary">Volver</button>
     </form>
@@ -51,7 +55,7 @@
 <aside class="modal-result d-flex justify-content-center align-items-center">
     <div class="card-modal bg-white p-5 rounded-left rounded-right">
         <h3>Modificar categoría</h3>
-        <form action="editar/categoria" method="POST" class="my-4">
+        <form action="editar/categoria" method="POST" class="my-4" enctype="multipart/form-data">
         <div class="row">
             <div class="col-6">
                 <input type="hidden" name="id" value={$category->id}>

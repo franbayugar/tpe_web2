@@ -69,6 +69,16 @@ class AdminController
         $this->view->showAdmin();
     }
 
+    function uniqueRealName($realName, $tempName)
+    {
+        $filePath = "img/destinations/" . uniqid("", true) . "."
+            . strtolower(pathinfo($realName, PATHINFO_EXTENSION));
+
+        move_uploaded_file($tempName, $filePath);
+
+        return $filePath;
+    }
+
     //agregar destino
     function addDestination()
     {
@@ -81,7 +91,6 @@ class AdminController
             $this->view->showDestinationManage($category, $destination, 'Faltan datos obligatorios');
             die();
         }
-
         //guardo lo que llega del form por post en variables
         $place = $_POST['place'];
         $shortdescription = $_POST['shortdescription'];
@@ -89,8 +98,21 @@ class AdminController
         $value = $_POST['value'];
         $category = $_POST['category'];
 
-        // inserto el destino en la DB
-        $id = $this->travelModel->insert($place, $shortdescription, $description, $value, $category);
+        if (
+            $_FILES['imageUpload']['type'] == "image/jpg" ||
+            $_FILES['imageUpload']['type'] == "image/jpeg" ||
+            $_FILES['imageUpload']['type'] == "image/png"
+        ) {
+            // inserto el destino en la DB
+            $realName = $this->uniqueRealName($_FILES['imageUpload']['name'], $_FILES['imageUpload']['tmp_name']);
+            $this->travelModel->insert($place, $shortdescription, $description, $value, $realName, $category);
+        } else {
+            $destination = $this->travelModel->getAll();
+            $category = $this->categoryModel->getAll();
+            $this->view->showDestinationManage($category, $destination, 'Faltan datos obligatorios');
+            die();
+        }
+
 
         // redirigimos a la pagina del manejo de destino
         header("Location: " . BASE_URL . 'destinationmanage');
@@ -198,7 +220,19 @@ class AdminController
         $id = $_POST['id'];
 
         // inserto el destino en la DB
-        $this->travelModel->update($place, $shortdescription, $description, $value, $category, $id);
+        if (
+            $_FILES['imageUpload']['type'] == "image/jpg" ||
+            $_FILES['imageUpload']['type'] == "image/jpeg" ||
+            $_FILES['imageUpload']['type'] == "image/png"
+        ) {
+            $realName = $this->uniqueRealName($_FILES['imageUpload']['name'], $_FILES['imageUpload']['tmp_name']);
+            $this->travelModel->update($place, $shortdescription, $description, $value, $realName, $category, $id);
+        } else {
+            $destination = $this->travelModel->getAll();
+            $category = $this->categoryModel->getAll();
+            $this->view->showDestinationManage($category, $destination, 'La imagen ingresada no tiene la extensión correspondiente');
+            die();
+        }
 
         // redirigimos
         header("Location: " . BASE_URL . 'destinationmanage');

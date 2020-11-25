@@ -6,7 +6,7 @@
       <hr class="my-4">
 <section class="container">
         <h4>Agregue una nueva categoría:</h4>
-<form action="insertar/categoria" method="POST" class="my-4">
+<form action="insertar/categoria" method="POST" class="my-4" enctype="multipart/form-data">
     <div class="row">
         <div class="col-6">
             <div class="form-group">

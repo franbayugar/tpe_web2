@@ -6,7 +6,7 @@
     <hr class="my-4">
 <section class="container">
         <h4>Agregue un nuevo destino:</h4>
-<form action="insertar/destino" method="POST" class="my-4">
+<form action="insertar/destino" method="POST" class="my-4" enctype="multipart/form-data">
     <div class="row">
         <div class="col-8">
             <div class="form-group">
@@ -41,6 +41,10 @@
         <input type="number" name="value" class="form-control" rows="2" required>
     </div>
 
+    <div class="form-group d-flex flex-column">
+        <label>Imagen:</label>
+        <input type="file" name="imageUpload" id="imageToUpload" class="mt-2 mb-2" required>
+    </div>
     <button type="submit" class="btn btn-success">Agregar</button>
 </form>
         {if $error}

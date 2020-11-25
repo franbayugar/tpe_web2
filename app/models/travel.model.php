@@ -76,11 +76,11 @@ class TravelModel
 
 
     //insertar datos
-    function insert($place, $shortdescription, $description, $value, $category)
+    function insert($place, $shortdescription, $description, $value, $image, $category)
     {
         //Enviar la consulta (prepare y execute)
-        $query = $this->db->prepare('INSERT INTO destino (destino, descripcion_breve, descripcion, precio, id_categoria) VALUES (?,?,?,?,?)');
-        $query->execute([$place, $shortdescription, $description, $value, $category]);
+        $query = $this->db->prepare('INSERT INTO destino (destino, descripcion_breve, descripcion, precio, imagen, id_categoria) VALUES (?,?,?,?,?,?)');
+        $query->execute([$place, $shortdescription, $description, $value, $image, $category]);
     }
 
     //eliminar datos
@@ -92,12 +92,12 @@ class TravelModel
     }
 
     //actualizar datos
-    function update($place, $shortdescription, $description, $value, $category, $id)
+    function update($place, $shortdescription, $description, $value, $image, $category, $id)
     {
         //Enviar la consulta (prepare y execute)
         $query = $this->db->prepare('UPDATE destino 
-        SET destino = ?, descripcion_breve = ?, descripcion = ?, precio = ?, id_categoria = ?
+        SET destino = ?, descripcion_breve = ?, descripcion = ?, precio = ?, imagen = ?, id_categoria = ?
         WHERE id = ?');
-        $query->execute([$place, $shortdescription, $description, $value, $category, $id]);
+        $response = $query->execute([$place, $shortdescription, $description, $value, $image, $category, $id]);
     }
 }
