@@ -98,22 +98,21 @@ class AdminController
         $value = $_POST['value'];
         $category = $_POST['category'];
 
+        //verifico que el archivo insertado sea de la extension correspondiente
         if (
             $_FILES['imageUpload']['type'] == "image/jpg" ||
             $_FILES['imageUpload']['type'] == "image/jpeg" ||
             $_FILES['imageUpload']['type'] == "image/png"
         ) {
-            // inserto el destino en la DB
+            // llamo a la funcion para obtener el real name y luego inserto en la DB
             $realName = $this->uniqueRealName($_FILES['imageUpload']['name'], $_FILES['imageUpload']['tmp_name']);
             $this->travelModel->insert($place, $shortdescription, $description, $value, $realName, $category);
         } else {
             $destination = $this->travelModel->getAll();
             $category = $this->categoryModel->getAll();
-            $this->view->showDestinationManage($category, $destination, 'Faltan datos obligatorios');
+            $this->view->showDestinationManage($category, $destination, 'Error: el archivo insertado no es válido');
             die();
         }
-
-
         // redirigimos a la pagina del manejo de destino
         header("Location: " . BASE_URL . 'destinationmanage');
     }
@@ -222,27 +221,42 @@ class AdminController
         $category = $_POST['category'];
         $id = $_POST['id'];
 
-        // inserto el destino en la DB
+        // verifico que el archivo cargado tenga la extension correcta
         if (
             $_FILES['imageUpload']['type'] == "image/jpg" ||
             $_FILES['imageUpload']['type'] == "image/jpeg" ||
             $_FILES['imageUpload']['type'] == "image/png"
         ) {
+            //verifico que esta seteada la ruta a borrar
             if (isset($_POST['deleteImg'])) {
                 unlink($_POST['deleteImg']);
             } else {
+                //en caso de que no se pida borrar la imagen envío mensaje de error
                 $destination = $this->travelModel->getAll();
                 $category = $this->categoryModel->getAll();
                 $this->view->showDestinationManage($category, $destination, 'Para modificar una imagen se debe eliminar primero la que está precargada');
                 die();
             }
+            // llamo a la funcion para obtener el real name y luego modifico destino en la DB
             $realName = $this->uniqueRealName($_FILES['imageUpload']['name'], $_FILES['imageUpload']['tmp_name']);
             $this->travelModel->update($place, $shortdescription, $description, $value, $realName, $category, $id);
         } else {
-            $destination = $this->travelModel->getAll();
-            $category = $this->categoryModel->getAll();
-            $this->view->showDestinationManage($category, $destination, 'La imagen ingresada no tiene la extensión correspondiente');
-            die();
+            /* si el archivo no tiene la extension correspondiente 
+            chequeo que hayan intentado borrar la imagen pero sin cargar el archivo correspondiente
+            */
+            if (
+                isset($_POST['deleteImg']) || $_FILES['imageUpload']['type'] != "image/jpg" ||
+                $_FILES['imageUpload']['type'] != "image/jpeg" ||
+                $_FILES['imageUpload']['type'] != "image/png"
+            ) {
+                $destination = $this->travelModel->getAll();
+                $category = $this->categoryModel->getAll();
+                header("Location: " . BASE_URL . 'error');
+                die();
+            }
+            //en caso de solo intentar editar algun otro campo que no sea la imagen actualizo el resto de los campos
+            $image = $_POST['imagePreUpload'];
+            $this->travelModel->update($place, $shortdescription, $description, $value, $image, $category, $id);
         }
 
         // redirigimos
@@ -294,7 +308,7 @@ class AdminController
         $category = $this->categoryModel->getAll();
         $this->view->showCategoryManage($category);
     }
-
+    //funcion para llamar a la pagina del registro
     function registry()
     {
         //check login
@@ -302,13 +316,11 @@ class AdminController
         //llamado a la vista
         $this->view->showRegister();
     }
-
+    /* agrego usuario a la DB*/
     function addUser()
     {
-        //CONSULTAR
         AuthHelper::checkLogged();
         //compruebo que no haya campos vacios
-
         if (
             empty($_POST['user']) || empty($_POST['mail']) || empty($_POST['password'])
             || empty($_POST['password-confirm'])
@@ -329,6 +341,7 @@ class AdminController
             die();
         }
 
+        //guardo los valores en variables
         $username = $_POST['user'];
         $email = $_POST['mail'];
         $password = $_POST['password'];
@@ -338,18 +351,21 @@ class AdminController
             $this->view->showRegister('La contraseña debe ser de 6 o más caracteres');
             die();
         }
+        //obtengo los usuarios
         $user = $this->userModel->getUsers($username, $email);
         //compruebo que no se quiera ingresar el mismo usuario o email
         if ($user != null) {
             $this->view->showRegister('El nombre de usuario o e-mail ya existen');
             die();
         }
-
+        //hash de la password y registro de usuario
         $hash = password_hash($password, PASSWORD_DEFAULT);
         $this->userModel->registryUser($username, $email, $hash);
+        //el usuario se logea y se envian los datos por post de ingreso
         $this->loginUser();
     }
 
+    //llamado a la funcion para el manejo de usuarios
     function usersPage()
     {
         AuthHelper::checkAdmin();
@@ -359,6 +375,7 @@ class AdminController
         die();
     }
 
+    //borrado de usuario
     function deleteUser($id)
     {
         //check login
@@ -374,6 +391,7 @@ class AdminController
         }
     }
 
+    //autenticacion de usuarios
     function showPermission($id)
     {
         //check login
@@ -387,11 +405,11 @@ class AdminController
             $this->view->showError();
         }
     }
-
+    /* actualizacion de permisos por parte del administrador */
     function updatePermission()
     {
         AuthHelper::checkAdmin();
-
+        /* se verifica que no se quiera borrar una sesion iniciada y que no haya valores nulos*/
         if (!isset($_POST['permission']) || !isset($_POST['id']) || ($_SESSION['ID_USER'] == $_POST['id'])) {
             $users = $this->userModel->getAll();
             $this->view->showUsersManage($users, 'No se pueden editar los permisos de una cuenta con la sesión iniciada');
@@ -400,6 +418,7 @@ class AdminController
         $permission = $_POST['permission'];
         $id = $_POST['id'];
 
+        //llamado a la DB
         $this->userModel->updatePermission($permission, $id);
         header("Location: " . BASE_URL . "usersmanage");
     }
@@ -409,6 +428,7 @@ class AdminController
     {
         AuthHelper::logout();
     }
+    //mostrar error
     function showError()
     {
         session_start();

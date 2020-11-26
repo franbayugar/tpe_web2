@@ -11,6 +11,7 @@ class APIView
         echo json_encode($data);
     }
 
+    //funcion para codigo de respuesta
     private function requestStatus($code)
     {
         $status = array(

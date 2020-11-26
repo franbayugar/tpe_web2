@@ -18,6 +18,7 @@ class CommentModel
         return $db;
     }
 
+    //obtener todos los comentarios
     function getAll($parametros)
     {
         $sql = 'SELECT comentario.id, comentario.descripcion, comentario.puntuacion, usuario.username, destino.destino FROM `comentario` INNER JOIN `usuario` ON `id_usuario` = usuario.id INNER JOIN `destino` ON `id_destino` = destino.id';
@@ -38,6 +39,7 @@ class CommentModel
         return $comments;
     }
 
+    //obtener comentario por ID de destino
     function getByDestinationID($id)
     {
         //Enviar la consulta (prepare y execute)
@@ -51,19 +53,21 @@ class CommentModel
         return $comments;
     }
 
+    //obtener un comentario por id
     function getOne($id)
     {
         //Enviar la consulta (prepare y execute)
         $query = $this->db->prepare('SELECT comentario.id, comentario.descripcion, comentario.puntuacion, usuario.username, destino.destino FROM `comentario` INNER JOIN `usuario` ON `id_usuario` = usuario.id INNER JOIN `destino` ON `id_destino` = destino.id WHERE comentario.id = ?');
         $query->execute([$id]);
 
-        //Obtengo la respuesta con un fetchAll 
-        $comments = $query->fetch(PDO::FETCH_OBJ); // arreglo de comentarios
+        //Obtengo la respuesta con un fetch 
+        $comments = $query->fetch(PDO::FETCH_OBJ);
 
         //retorno lo que trae
         return $comments;
     }
 
+    //borrar comentario
     function deleteComment($id)
     {
         //Enviar la consulta (prepare y execute)
@@ -72,6 +76,7 @@ class CommentModel
         return $query->rowCount();
     }
 
+    //insertar comentario llegan por parametro los valores
     function insertComment($comment, $score, $idUser, $idDestination)
     {
         //Enviar la consulta (prepare y execute)

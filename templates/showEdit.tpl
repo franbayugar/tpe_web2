@@ -47,7 +47,8 @@
         <div class="row">
             <div class="col-sm-9">
             <label>Imagen:</label>
-            <input type="file" name="imageUpload" id="imageToUpload" class="mt-2 mb-2" required>
+            <input type="file" name="imageUpload" id="imageToUpload" class="mt-2 mb-2">
+            <input type="hidden" name="imagePreUpload" value="{$destination->imagen}">
             </div>
             <div class="col-sm-3 text-center" id="container-img">
             <img src="{$destination->imagen}" class="w-75 imgDestination">

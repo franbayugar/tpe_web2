@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 e.preventDefault();
                 let id = this.getAttribute("id");
                 showEdit(id);
-            })
-        })
+            });
+        });
     }
 
     async function showEdit(id) {
