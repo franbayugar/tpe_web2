@@ -115,6 +115,7 @@ switch ($params[0]) {
         break;
         // ver detalle
     case 'verdetalle':
+
         $controller = new MainController();
         if (!empty($params[1])) {
             $id = $params[1];

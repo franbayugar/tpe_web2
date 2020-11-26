@@ -146,6 +146,9 @@ class AdminController
         //check login
         AuthHelper::checkAdmin();
         //enviamos por parametro la id del destino a borrar al modal travel
+        $imgRoute = $this->travelModel->getRouteImg($id);
+        unlink($imgRoute->imagen);
+
         $this->travelModel->remove($id);
         //redirigmos
         header("Location: " . BASE_URL . 'destinationmanage');
@@ -225,6 +228,14 @@ class AdminController
             $_FILES['imageUpload']['type'] == "image/jpeg" ||
             $_FILES['imageUpload']['type'] == "image/png"
         ) {
+            if (isset($_POST['deleteImg'])) {
+                unlink($_POST['deleteImg']);
+            } else {
+                $destination = $this->travelModel->getAll();
+                $category = $this->categoryModel->getAll();
+                $this->view->showDestinationManage($category, $destination, 'Para modificar una imagen se debe eliminar primero la que está precargada');
+                die();
+            }
             $realName = $this->uniqueRealName($_FILES['imageUpload']['name'], $_FILES['imageUpload']['tmp_name']);
             $this->travelModel->update($place, $shortdescription, $description, $value, $realName, $category, $id);
         } else {

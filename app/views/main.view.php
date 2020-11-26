@@ -38,7 +38,7 @@ class MainView
     {
         $smarty = new Smarty();
         $smarty->assign('destination', $destination);
-        $smarty->display('templates/showDetail.tpl');
+        $smarty->display('templates/showMore.tpl');
     }
 
     function showCommentsCSR($destination)

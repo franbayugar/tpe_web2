@@ -64,6 +64,7 @@ class MainController
    //funcion para ver detalles 
    function showMore($id)
    {
+
       $destination = $this->travelModel->getOne($id);
       if ($destination != null) {
          $this->view->showCommentsCSR($destination);

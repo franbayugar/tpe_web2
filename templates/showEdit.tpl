@@ -26,9 +26,16 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
+        <div class="row">
+        <div class="form-group col-sm-9">
             <label>Descripcion breve</label>
             <textarea name="shortdescription" class="form-control" rows="2" maxlength='110' required>{$destination->descripcion_breve}</textarea>
+               </div>
+
+        <div class="form-group col-sm-3">
+            <label>Precio</label>
+            <input type="number" name="value" class="form-control" rows="2" value={$destination->precio} required>
+        </div>
         </div>
 
         <div class="form-group">
@@ -36,14 +43,16 @@
             <textarea name="description" class="form-control" rows="3" maxlength='640' required>{$destination->descripcion}</textarea>
         </div>
 
-        <div class="form-group">
-            <label>Precio</label>
-            <input type="number" name="value" class="form-control" rows="2" value={$destination->precio} required>
-        </div>
 
-        <div class="form-group d-flex flex-column">
+        <div class="row">
+            <div class="col-sm-9">
             <label>Imagen:</label>
             <input type="file" name="imageUpload" id="imageToUpload" class="mt-2 mb-2" required>
+            </div>
+            <div class="col-sm-3 text-center" id="container-img">
+            <img src="{$destination->imagen}" class="w-75 imgDestination">
+            <button class="btn btn-danger btn-sm delete-img mt-2" id="{$destination->imagen}">Eliminar</button>
+            </div>
         </div>
         <button type="submit" class="btn-success btn btn-primary">Guardar</button>
         <button id="btn-back" class="btn-back btn btn-primary">Volver</button>

@@ -3,6 +3,8 @@
     <div class="row">
     <div>
         <h1 class="display-3">{$destination->destino}</h1>
+                  <hr class="my-4">
+        <img src="{$destination->imagen}" alt="imagen-destino" class="w-100">
     </div>      
           <hr class="my-4">
     <div class="col-sm-12">

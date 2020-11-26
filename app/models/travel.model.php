@@ -100,4 +100,11 @@ class TravelModel
         WHERE id = ?');
         $response = $query->execute([$place, $shortdescription, $description, $value, $image, $category, $id]);
     }
+
+    function getRouteImg($id)
+    {
+        $query = $this->db->prepare('SELECT imagen FROM destino WHERE id = ?');
+        $query->execute([$id]);
+        return $query->fetch(PDO::FETCH_OBJ);;
+    }
 }

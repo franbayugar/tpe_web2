@@ -1,7 +1,7 @@
     {foreach from=$destination item=place}
             <div class="col-sm-4">
                     <div class="travel-card card w-100 card-border mb-5">
-                        <img src="img/card01.jpg" class="card-img-top" alt="...">
+                        <img src="{$place->imagen}" class="card-img-top" alt="...">
                         <div class='product card-text'>
                         <p>{$place->aliaspaquete}</p>
                         </div>
