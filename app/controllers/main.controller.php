@@ -26,11 +26,20 @@ class MainController
    function showHome()
    {
       // actualizo la vista
-      $destination = $this->travelModel->getAll();
+      $destination = $this->travelModel->getByPagination(0, 3);
       $category = $this->categoryModel->getAll();
 
       $this->view->showHome($destination, $category);
    }
+
+   function filterByPagination($pagination)
+   {
+      // actualizo la vista
+      $destination = $this->travelModel->getByPagination($pagination, 3);
+
+      $this->view->filter($destination, 0, 1);
+   }
+
 
    //mostrar nosotros
    function showAbout()

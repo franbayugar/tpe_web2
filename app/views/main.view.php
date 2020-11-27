@@ -25,11 +25,13 @@ class MainView
     }
 
     //filtro - trabaja con ajax y recibe por parametro un checkid para verificar en smarty q mostrar
-    function filter($destination, $checkId)
+    function filter($destination, $checkId, $buttons = null)
     {
         $smarty = new Smarty();
         $smarty->assign('destination', $destination);
         $smarty->assign('checkId', $checkId);
+        $smarty->assign('buttons', $buttons);
+
         $smarty->display('templates/homeFilter.tpl');
     }
 

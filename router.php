@@ -34,6 +34,11 @@ switch ($params[0]) {
             $controller->filter($id);
         }
         break;
+    case 'pagination':
+        $controller = new MainController();
+        $id = $params[1];
+        $controller->filterByPagination($id);
+        break;
         //url q lleva a login
     case 'login':
         $controller = new AdminController();

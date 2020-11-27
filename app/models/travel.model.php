@@ -26,12 +26,24 @@ class TravelModel
         $query->execute();
 
         //Obtengo la respuesta con un fetchAll (porque son muchos)
-        $destination = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de tareas
+        $destination = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de destinos
 
         //retorno lo que trae
         return $destination;
     }
 
+    function getByPagination($offset, $limit)
+    {
+        //Enviar la consulta (prepare y execute)
+        $query = $this->db->prepare('SELECT *, des.id as id_destino FROM `destino` des INNER JOIN `categoria` ON `id_categoria` = categoria.id ORDER BY `id_destino` LIMIT ' . $offset . ',' . $limit . ';');
+        $query->execute();
+
+        //Obtengo la respuesta con un fetchAll (porque son muchos)
+        $destination = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de destinos
+
+        //retorno lo que trae
+        return $destination;
+    }
     //obtener un destino
     function getOne($id)
     {
