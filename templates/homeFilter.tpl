@@ -10,6 +10,7 @@
             <p class='card-text'>{$place->descripcion_breve|truncate:100}</p>
             <h5 class='card-text'>Desde ${$place->precio}</h5>
             <a class='btn btn-danger btn-sm' href='verdetalle/{$place->id_destino}'>Ver detalles</a>
+            <input id="count-items" type="hidden" value={$destination|count}>
         </div>
     </div>
 </div>

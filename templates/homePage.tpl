@@ -11,10 +11,26 @@
         </div>
         {/foreach}
     </div>
+    <h4 class="text-center pb-5 pt-5 h1">Observá los paquetes que tenemos para vos:</h4>
+
     <div id="travel-container" class="row">
-            <h4 class="text-center pb-5 pt-5 h1">Observá todos los paquetes que tenemos para vos:</h4>
 {include 'homeFilter.tpl'}
 </section>
+    <section>
+        <form action="busqueda" method="POST" class="form-group">
+        <div class="d-flex row m-5">
+                <h4>Buscá el mejor precio para vos:</h4>
+            <div class="col-sm-10 d-flex">
+                <input class="form-control" name="precio-min" type="number" placeholder="Precio mínimo">
+                <input class="form-control" name="precio-min" type="number" placeholder="Precio máximo">
+            </div>
+            <div class="col-sm-2">
+                <button class="form-control btn btn-md btn-primary">Buscar</button>
+            </div>
+            </div>
+        </form>
+    </section>
+
 {include 'footer.tpl'}
 <script src="js/main.js"></script>
 

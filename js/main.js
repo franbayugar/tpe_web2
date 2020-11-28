@@ -8,19 +8,19 @@ document.addEventListener("DOMContentLoaded", () => {
         let btnBack = document.querySelector('#btn-back');
         btnBack.setAttribute('disabled', '');
 
-        let i = 1;
-        let j = 0;
-        btnNext.setAttribute('pagination', 3 * i);
-        btnBack.setAttribute('pagination', 3 * j);
+        let countBtnNext = 1;
+        let countBtnBack = 0;
+        btnNext.setAttribute('pagination', 3 * countBtnNext);
+        btnBack.setAttribute('pagination', 3 * countBtnBack);
 
         btnNext.addEventListener("click", (e) => {
             e.preventDefault();
-            showByPagination(i, j, btnNext);
+            showByPagination(countBtnNext, countBtnBack, btnNext);
         });
 
         btnBack.addEventListener("click", (e) => {
             e.preventDefault();
-            showByPagination(i, j, btnBack);
+            showByPagination(countBtnNext, countBtnBack, btnBack);
         });
     }
 
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     async function showFilter(id) {
-        container.innerHTML = '<div class="pb-3 pt-5"><h1 class="text-center">Cargando...</h1></div></div>';
+        container.innerHTML = '<div class="pb-3 pt-5 mt-5 mb-5"><h1 class="text-center mb-5 mt-5 pb-5">Cargando...</h1></div>';
         let response = await fetch(`filtrar/${id}`, {
             method: 'GET'
         });
@@ -49,11 +49,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    async function showByPagination(i, j, btnPress) {
+    async function showByPagination(countBtnNext, countBtnBack, btnPress) {
         let id = btnPress.getAttribute('pagination');
         let comprobationBtn = btnPress.getAttribute('press');
 
-        container.innerHTML = '<div class="pb-3 pt-5"><h1 class="text-center">Cargando...</h1></div></div>';
+        container.innerHTML = '<div class="pb-3 pt-5"><h1 class="text-center pb-5 mb-5">Cargando...</h1></div></div>';
         let response = await fetch(`pagination/${id}`, {
             method: 'GET'
         });
@@ -61,41 +61,45 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             container.innerHTML = html;
             if (comprobationBtn == 1) {
-                i++;
-                if (i > 2) {
-                    j++;
+                countBtnNext++;
+                if (countBtnNext > 2) {
+                    countBtnBack++;
                 }
 
             }
             else {
-                i--;
-                if (j != 0) {
-                    j--;
+                countBtnNext--;
+                if (countBtnBack != 0) {
+                    countBtnBack--;
                 }
             }
-            btnNextNew(i, j);
+            btnNextNew(countBtnNext, countBtnBack);
         }, 500);
 
     }
 
-    function btnNextNew(i, j) {
+    function btnNextNew(countBtnNext, countBtnBack) {
+        let quantityItems = document.querySelector("#count-items").value;
         let btnNextNew = document.querySelector('#btn-next');
-        btnNextNew.setAttribute('pagination', 3 * i);
+        btnNextNew.setAttribute('pagination', 3 * countBtnNext);
+        if (quantityItems < 3) {
+            console.log(quantityItems);
+            btnNextNew.setAttribute('disabled', "");
+
+        }
         btnNextNew.addEventListener("click", () => {
-            showByPagination(i, j, btnNextNew);
+            showByPagination(countBtnNext, countBtnBack, btnNextNew);
 
         });
         let btnBackNew = document.querySelector('#btn-back');
-        btnBackNew.setAttribute('pagination', 3 * j);
-        if (i == 1 && j == 0) {
+        btnBackNew.setAttribute('pagination', 3 * countBtnBack);
+        if (countBtnNext == 1 && countBtnBack == 0) {
             btnBackNew.setAttribute('disabled', "");
         } else {
             btnBackNew.addEventListener("click", () => {
-                showByPagination(i, j, btnBackNew);
+                showByPagination(countBtnNext, countBtnBack, btnBackNew);
             });
         }
-
-
     }
 
     function buttonSeeAll() {
@@ -105,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 showFilter(btnSeeAll.getAttribute("id"));
             });
         }, 500);
-
     }
 
 });

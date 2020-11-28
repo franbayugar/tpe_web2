@@ -37,7 +37,11 @@ class MainController
       // actualizo la vista
       $destination = $this->travelModel->getByPagination($pagination, 3);
 
-      $this->view->filter($destination, 0, 1);
+      if ($destination != null) {
+         $this->view->filter($destination, 0, 1);
+      } else {
+         $this->view->showError('Error: elemento no disponible');
+      }
    }
 
 
@@ -82,11 +86,6 @@ class MainController
          die();
       }
    }
-
-   function showCommentsCSR()
-   {
-   }
-
    function showError()
    {
       $this->view->showError();
