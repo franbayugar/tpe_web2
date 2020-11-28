@@ -45,10 +45,10 @@ class TravelModel
         return $destination;
     }
 
-    function getByPaginationSearch($offset, $limit)
+    function getByPaginationSearch($minprice, $maxprice)
     {
-        $query = $this->db->prepare('SELECT *, destino.id as id_destino FROM `destino` INNER JOIN `categoria` ON `id_categoria` = categoria.id WHERE destino.precio>1000 AND destino.precio < 5000 LIMIT ' . $offset . ',' . $limit . ';');
-        $query->execute();
+        $query = $this->db->prepare('SELECT *, destino.id as id_destino FROM `destino` INNER JOIN `categoria` ON `id_categoria` = categoria.id WHERE destino.precio> ? AND destino.precio < ?;');
+        $query->execute([$minprice, $maxprice]);
 
         //Obtengo la respuesta con un fetchAll (porque son muchos)
         $destination = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de destinos

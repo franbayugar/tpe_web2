@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const formSearch = document.querySelector('#form-search');
     formSearch.addEventListener("submit", (e) => {
         e.preventDefault();
-        priceFilter();
+        let minPrice = document.querySelector('input[name="precio-min"]').value;
+        let maxPrice = document.querySelector('input[name="precio-max"]').value;
+        priceFilter(minPrice, maxPrice);
     })
     /* se asignan eventos a lo botones una vez que se carga la pagina*/
     function btnesNextBack() {
@@ -122,9 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 500);
     }
 
-    async function priceFilter() {
-        let minPrice = document.querySelector('input[name="precio-min"]').value;
-        let maxPrice = document.querySelector('input[name="precio-max"]').value;
+    async function priceFilter(minPrice, maxPrice) {
 
         container.innerHTML = '<div class="pb-3 pt-5 mt-5 mb-5"><h1 class="text-center mb-5 mt-5 pb-5">Cargando...</h1></div>';
         let response = await fetch(`pagination-search/${minPrice}/${maxPrice}`, {

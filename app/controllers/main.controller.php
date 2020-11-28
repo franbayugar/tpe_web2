@@ -44,13 +44,16 @@ class MainController
       }
    }
 
-   function paginationSearch($pagination = null)
+   function paginationSearch($params)
    {
-      if ($pagination == null) {
-         $pagination = 0;
+      $minprice = $params[1];
+      $maxprice = $params[2];
+      $destination = $this->travelModel->getByPaginationSearch($minprice, $maxprice);
+      if ($destination) {
+         $this->view->filter($destination, 0);
+      } else {
+         $this->view->showError('No tenemos destinos en ese rango de precios');
       }
-      $destination = $this->travelModel->getByPaginationSearch(0, 3);
-      $this->view->filter($destination, 0, 1);
    }
 
    //mostrar nosotros
