@@ -11,7 +11,6 @@ const app = new Vue({
             const comments = await fetch(`api/comentario/${id}`, {
                 "method": 'DELETE'
             });
-            console.log(comments);
             this.getComments();
         },
         getComments: async function () {
@@ -61,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (response.ok) {
                 const commentsResponse = await response.json();
                 app.comments = commentsResponse;
-
             }
             else {
                 console.log('error');
@@ -93,6 +91,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const comment = response.json();
             //llamo a la funcion para obtener los comentarios 
             getComments();
+            if (response.ok) {
+                document.querySelector(".form-box").innerHTML =
+                    "<div class='alert alert-success'><h3>Gracias por comentar, ¡tu opinión nos ayuda a seguir creciendo!</h3></div>"
+            }
         }
         catch (e) {
             console.log(e);

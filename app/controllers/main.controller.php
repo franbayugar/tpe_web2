@@ -25,17 +25,15 @@ class MainController
    //mostrar el home
    function showHome()
    {
-      // actualizo la vista
       $destination = $this->travelModel->getByPagination(0, 3);
       $category = $this->categoryModel->getAll();
+      //doy un valor para los botones de paginado
       $buttonsPagination = 3;
-
       $this->view->showHome($destination, $category, $buttonsPagination);
    }
 
    function filterByPagination($pagination)
    {
-      // actualizo la vista
       $destination = $this->travelModel->getByPagination($pagination, 3);
       $pagination = $pagination + 3;
       if ($destination != null) {
@@ -101,6 +99,8 @@ class MainController
          die();
       }
    }
+
+
    function showError()
    {
       $this->view->showError();

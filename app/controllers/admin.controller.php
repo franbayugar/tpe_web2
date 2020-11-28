@@ -418,7 +418,7 @@ class AdminController
         $permission = $_POST['permission'];
         $id = $_POST['id'];
 
-        //llamado a la DB
+        //llamado a la db
         $this->userModel->updatePermission($permission, $id);
         header("Location: " . BASE_URL . "usersmanage");
     }

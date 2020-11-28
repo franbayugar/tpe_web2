@@ -12,7 +12,6 @@
     <p class="font-italic">{$destination->descripcion}</p>
         <hr class="my-4">
         <div class="comment-box">
-            <h4>Opiniones:</h4>
             {include file="vue/commentList.vue"}
         </div>
         <hr class="my-4">
@@ -21,7 +20,8 @@
         <input type="hidden" name="id_destino" value={$destination->id_destino}>
         <input type="hidden" name="id_user" value={$smarty.session.ID_USER}>
         <input type="hidden" name="rol_user" value={$smarty.session.permission}>
-            <div class="form-group row">
+            <div class="form-box">
+            <div class="form-group row ">
                 <div class= "col-8">
                         <label for="FormControlTextarea1">
                             <h4>Dejá tu comentario y puntuación:</h4>
@@ -46,6 +46,7 @@
             <textarea class="form-control" name="comentario" id="comment" rows="3" required></textarea>
             <div class="text-center">
                 <button id="btn-enviar" class="btn btn-md btn-primary text-center">Enviar</button>
+            </div>
             </div>
         </form> 
     {else}

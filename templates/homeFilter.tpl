@@ -32,4 +32,6 @@
     </div>
     <div class="col-sm-4"></div>
 </div>
+{else}
+        <input type="hidden" id="btn-back" press="0" filterPrice="0" pagination="0" class="btn btn-secondary">
 {/if}
