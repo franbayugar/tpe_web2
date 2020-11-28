@@ -15,19 +15,14 @@ document.addEventListener("DOMContentLoaded", () => {
         let btnBack = document.querySelector('#btn-back');
         btnBack.setAttribute('disabled', '');
 
-        let countBtnNext = 1;
-        let countBtnBack = 0;
-        btnNext.setAttribute('pagination', 3 * countBtnNext);
-        btnBack.setAttribute('pagination', 3 * countBtnBack);
-
         btnNext.addEventListener("click", (e) => {
             e.preventDefault();
-            showByPagination(countBtnNext, countBtnBack, btnNext);
+            showByPagination(btnNext);
         });
 
         btnBack.addEventListener("click", (e) => {
             e.preventDefault();
-            showByPagination(countBtnNext, countBtnBack, btnBack);
+            showByPagination(btnBack);
         });
     }
 
@@ -59,59 +54,41 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* funcion para realizar el paginado y controlar los botones*/
-    async function showByPagination(countBtnNext, countBtnBack, btnPress) {
-        let id = btnPress.getAttribute('pagination');
+    async function showByPagination(btnPress) {
+        let btnPagination = btnPress.getAttribute('pagination');
         let comprobationBtn = btnPress.getAttribute('press');
 
         container.innerHTML = '<div class="pb-3 pt-5"><h1 class="text-center pb-5 mb-5">Cargando...</h1></div></div>';
-        let response = await fetch(`pagination/${id}`, {
+        let response = await fetch(`pagination/${btnPagination}`, {
             method: 'GET'
         });
         let html = await response.text();
         setTimeout(() => {
             container.innerHTML = html;
-            if (comprobationBtn == 1) {
-                countBtnNext++;
-                if (countBtnNext > 2) {
-                    countBtnBack++;
-                }
-
-            }
-            else {
-                countBtnNext--;
-                if (countBtnBack != 0) {
-                    countBtnBack--;
-                }
-            }
-            btnNextNew(countBtnNext, countBtnBack);
+            newButtons(btnPagination);
         }, 500);
 
     }
 
     /* funcion para los botones back y next del paginado
     que se vuelven a generar cada vez que se hace un pedido a la DB */
-    function btnNextNew(countBtnNext, countBtnBack) {
+    function newButtons(btnPagination) {
         let quantityItems = document.querySelector("#count-items").value;
         let btnNextNew = document.querySelector('#btn-next');
-        btnNextNew.setAttribute('pagination', 3 * countBtnNext);
-        if (quantityItems < 3) {
-            console.log(quantityItems);
-            btnNextNew.setAttribute('disabled', "");
+        let btnBackNew = document.querySelector('#btn-back');
 
+        if (quantityItems < 3) {
+            btnNextNew.setAttribute('disabled', "");
+        }
+        if (btnPagination < 3) {
+            btnBackNew.setAttribute('disabled', "");
         }
         btnNextNew.addEventListener("click", () => {
-            showByPagination(countBtnNext, countBtnBack, btnNextNew);
-
+            showByPagination(btnNextNew);
         });
-        let btnBackNew = document.querySelector('#btn-back');
-        btnBackNew.setAttribute('pagination', 3 * countBtnBack);
-        if (countBtnNext == 1 && countBtnBack == 0) {
-            btnBackNew.setAttribute('disabled', "");
-        } else {
-            btnBackNew.addEventListener("click", () => {
-                showByPagination(countBtnNext, countBtnBack, btnBackNew);
-            });
-        }
+        btnBackNew.addEventListener("click", () => {
+            showByPagination(btnBackNew);
+        });
     }
 
     /* funcion para el boton de ver todos los productos */

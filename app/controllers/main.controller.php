@@ -28,17 +28,18 @@ class MainController
       // actualizo la vista
       $destination = $this->travelModel->getByPagination(0, 3);
       $category = $this->categoryModel->getAll();
+      $buttonsPagination = 3;
 
-      $this->view->showHome($destination, $category);
+      $this->view->showHome($destination, $category, $buttonsPagination);
    }
 
    function filterByPagination($pagination)
    {
       // actualizo la vista
       $destination = $this->travelModel->getByPagination($pagination, 3);
-
+      $pagination = $pagination + 3;
       if ($destination != null) {
-         $this->view->filter($destination, 0, 1);
+         $this->view->filter($destination, 0, $pagination);
       } else {
          $this->view->showError('Error: elemento no disponible');
       }

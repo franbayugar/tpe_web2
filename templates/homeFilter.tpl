@@ -23,12 +23,12 @@
     </div>
 </div>
 {/if}
-{if {$buttons}}
+{if {$buttonsPagination}}
 <div class="btn-group row" role="group" aria-label="Basic example">
     <div class="col-sm-4"></div>
     <div class="col-sm-4 text-center">
-        <button type="button" id="btn-back" press="0" class="btn btn-secondary">Anterior</button>
-        <button type="button" id="btn-next" press="1" class="btn btn-secondary">Siguiente</button>
+        <button type="button" id="btn-back" press="0" pagination="{$buttonsPagination - 6}" class="btn btn-secondary">Anterior</button>
+        <button type="button" id="btn-next" press="1" pagination="{$buttonsPagination}" class="btn btn-secondary">Siguiente</button>
     </div>
     <div class="col-sm-4"></div>
 </div>
