@@ -39,7 +39,7 @@ class MainController
       $destination = $this->travelModel->getByPagination($pagination, 3);
       $pagination = $pagination + 3;
       if ($destination != null) {
-         $this->view->filter($destination, 0, $pagination);
+         $this->view->filter($destination, 0, $pagination, 0);
       } else {
          $this->view->showError('Error: elemento no disponible');
       }
@@ -49,11 +49,14 @@ class MainController
    {
       $minprice = $params[1];
       $maxprice = $params[2];
-      $destination = $this->travelModel->getByPaginationSearch($minprice, $maxprice);
-      if ($destination) {
-         $this->view->filter($destination, 0);
+      $pagination = $params[3];
+
+      $destination = $this->travelModel->getByPaginationSearch($minprice, $maxprice, $pagination, 3);
+      if ($destination != null) {
+         $pagination = $pagination + 3;
+         $this->view->filter($destination, 0, $pagination, 1);
       } else {
-         $this->view->showError('No tenemos destinos en ese rango de precios');
+         $this->view->showError('No tenemos más destinos en ese rango de precios');
       }
    }
 

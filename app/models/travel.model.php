@@ -45,9 +45,9 @@ class TravelModel
         return $destination;
     }
 
-    function getByPaginationSearch($minprice, $maxprice)
+    function getByPaginationSearch($minprice, $maxprice, $offset, $limit)
     {
-        $query = $this->db->prepare('SELECT *, destino.id as id_destino FROM `destino` INNER JOIN `categoria` ON `id_categoria` = categoria.id WHERE destino.precio> ? AND destino.precio < ?;');
+        $query = $this->db->prepare('SELECT *, destino.id as id_destino FROM `destino` INNER JOIN `categoria` ON `id_categoria` = categoria.id WHERE destino.precio> ? AND destino.precio < ? LIMIT ' . $offset . ',' . $limit . ';');
         $query->execute([$minprice, $maxprice]);
 
         //Obtengo la respuesta con un fetchAll (porque son muchos)

@@ -5,9 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const formSearch = document.querySelector('#form-search');
     formSearch.addEventListener("submit", (e) => {
         e.preventDefault();
-        let minPrice = document.querySelector('input[name="precio-min"]').value;
-        let maxPrice = document.querySelector('input[name="precio-max"]').value;
-        priceFilter(minPrice, maxPrice);
+        let btn = document.querySelector("#btn-back");
+        btn.setAttribute("filterPrice", 1);
+        showByPagination(btn);
     })
     /* se asignan eventos a lo botones una vez que se carga la pagina*/
     function btnesNextBack() {
@@ -56,10 +56,20 @@ document.addEventListener("DOMContentLoaded", () => {
     /* funcion para realizar el paginado y controlar los botones*/
     async function showByPagination(btnPress) {
         let btnPagination = btnPress.getAttribute('pagination');
-        let comprobationBtn = btnPress.getAttribute('press');
-
+        let filterPrice = btnPress.getAttribute('filterPrice');
+        let url = '';
+        if (filterPrice == 1) {
+            if (btnPagination < 0) {
+                btnPagination = 0;
+            }
+            let price = priceFilter();
+            url = `pagination-search/${price}/${btnPagination}`;
+        }
+        else {
+            url = `pagination/${btnPagination}`;
+        }
         container.innerHTML = '<div class="pb-3 pt-5"><h1 class="text-center pb-5 mb-5">Cargando...</h1></div></div>';
-        let response = await fetch(`pagination/${btnPagination}`, {
+        let response = await fetch(url, {
             method: 'GET'
         });
         let html = await response.text();
@@ -101,17 +111,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 500);
     }
 
-    async function priceFilter(minPrice, maxPrice) {
+    function priceFilter() {
 
-        container.innerHTML = '<div class="pb-3 pt-5 mt-5 mb-5"><h1 class="text-center mb-5 mt-5 pb-5">Cargando...</h1></div>';
-        let response = await fetch(`pagination-search/${minPrice}/${maxPrice}`, {
-            method: 'GET'
-        });
-        let html = await response.text();
-        setTimeout(() => {
-            container.innerHTML = html;
-            btnesNextBack();
-        }, 500);
+        let minPrice = document.querySelector('input[name="precio-min"]').value;
+        let maxPrice = document.querySelector('input[name="precio-max"]').value;
+
+        return `${minPrice}/${maxPrice}`;
     }
 
 });
