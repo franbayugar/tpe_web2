@@ -165,9 +165,9 @@ switch ($params[0]) {
         $controller = new AdminController();
         $controller->updatePermission();
         break;
-    case 'listar-csr':
+    case 'pagination-search':
         $controller = new MainController();
-        $controller->showCommentsCSR();
+        $controller->paginationSearch($params);
         break;
     default:
         header("HTTP/1.0 404 Not Found");

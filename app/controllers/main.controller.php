@@ -44,6 +44,14 @@ class MainController
       }
    }
 
+   function paginationSearch($pagination = null)
+   {
+      if ($pagination == null) {
+         $pagination = 0;
+      }
+      $destination = $this->travelModel->getByPaginationSearch(0, 3);
+      $this->view->filter($destination, 0, 1);
+   }
 
    //mostrar nosotros
    function showAbout()

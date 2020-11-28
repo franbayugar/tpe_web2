@@ -17,15 +17,15 @@
 {include 'homeFilter.tpl'}
 </section>
     <section>
-        <form action="busqueda" method="POST" class="form-group">
+        <form action="busqueda" method="POST" id="form-search" class="form-group">
         <div class="d-flex row m-5">
                 <h4>Buscá el mejor precio para vos:</h4>
             <div class="col-sm-10 d-flex">
                 <input class="form-control" name="precio-min" type="number" placeholder="Precio mínimo">
-                <input class="form-control" name="precio-min" type="number" placeholder="Precio máximo">
+                <input class="form-control" name="precio-max" type="number" placeholder="Precio máximo">
             </div>
             <div class="col-sm-2">
-                <button class="form-control btn btn-md btn-primary">Buscar</button>
+                <button class="form-control btn btn-md btn-primary" id="btn-search">Buscar</button>
             </div>
             </div>
         </form>

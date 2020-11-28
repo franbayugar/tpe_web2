@@ -1,9 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
-    btnNext();
+    btnesNextBack();
     buttonsEvents();
     let container = document.querySelector("#travel-container");
-
-    function btnNext() {
+    const formSearch = document.querySelector('#form-search');
+    formSearch.addEventListener("submit", (e) => {
+        e.preventDefault();
+        priceFilter();
+    })
+    /* se asignan eventos a lo botones una vez que se carga la pagina*/
+    function btnesNextBack() {
         let btnNext = document.querySelector('#btn-next');
         let btnBack = document.querySelector('#btn-back');
         btnBack.setAttribute('disabled', '');
@@ -24,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    /* botones de filtrado por categoria */
     function buttonsEvents() {
         let botones = document.querySelectorAll('.btn-filter');
         botones.forEach(boton => {
@@ -35,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    /* mostrar filtro */
     async function showFilter(id) {
         container.innerHTML = '<div class="pb-3 pt-5 mt-5 mb-5"><h1 class="text-center mb-5 mt-5 pb-5">Cargando...</h1></div>';
         let response = await fetch(`filtrar/${id}`, {
@@ -49,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    /* funcion para realizar el paginado y controlar los botones*/
     async function showByPagination(countBtnNext, countBtnBack, btnPress) {
         let id = btnPress.getAttribute('pagination');
         let comprobationBtn = btnPress.getAttribute('press');
@@ -78,6 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+    /* funcion para los botones back y next del paginado
+    que se vuelven a generar cada vez que se hace un pedido a la DB */
     function btnNextNew(countBtnNext, countBtnBack) {
         let quantityItems = document.querySelector("#count-items").value;
         let btnNextNew = document.querySelector('#btn-next');
@@ -102,12 +112,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    /* funcion para el boton de ver todos los productos */
     function buttonSeeAll() {
         setTimeout(() => {
             let btnSeeAll = document.querySelector('.btn-all');
             btnSeeAll.addEventListener('click', () => {
                 showFilter(btnSeeAll.getAttribute("id"));
             });
+        }, 500);
+    }
+
+    async function priceFilter() {
+        let minPrice = document.querySelector('input[name="precio-min"]').value;
+        let maxPrice = document.querySelector('input[name="precio-max"]').value;
+
+        container.innerHTML = '<div class="pb-3 pt-5 mt-5 mb-5"><h1 class="text-center mb-5 mt-5 pb-5">Cargando...</h1></div>';
+        let response = await fetch(`pagination-search/${minPrice}/${maxPrice}`, {
+            method: 'GET'
+        });
+        let html = await response.text();
+        setTimeout(() => {
+            container.innerHTML = html;
+            btnesNextBack();
         }, 500);
     }
 
