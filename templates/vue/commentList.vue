@@ -25,7 +25,6 @@
         </table>
     </div>
     <div class="alert alert-warning" v-else>
-
         <h4>Aún no hay comentarios de este destino</h4>
     </div>
 </section>

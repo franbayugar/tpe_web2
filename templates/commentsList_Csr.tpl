@@ -15,11 +15,12 @@
             {include file="vue/commentList.vue"}
         </div>
         <hr class="my-4">
-        {if isset($smarty.session.username)}
+        {if isset($smarty.session.username) and {$comprobationComment} eq 1}
     <form class= "form-comment">
         <input type="hidden" name="id_destino" value={$destination->id_destino}>
         <input type="hidden" name="id_user" value={$smarty.session.ID_USER}>
         <input type="hidden" name="rol_user" value={$smarty.session.permission}>
+        <input type="hidden" name="comprobationComment" value={$comprobationComment}>
             <div class="form-box">
             <div class="form-group row ">
                 <div class= "col-8">
@@ -49,13 +50,26 @@
             </div>
             </div>
         </form> 
-    {else}
+        {else if {$comprobationComment} eq 0}
+        <div class="alert alert-info" v-else>
+            <input type="hidden" name="id_destino" value={$destination->id_destino}>
+            <input type="hidden" name="id_user" value={$smarty.session.ID_USER}>
+            <input type="hidden" name="rol_user" value={$smarty.session.permission}>
+            <input type="hidden" name="comprobationComment" value={$comprobationComment}>
+            <h4>Parece que ya opinaste sobre {$destination->destino}</h4>
+            <p>¡Te agradecemos por tu opinión, te invitamos a elegir un nuevo destino!</p>
+        </div>
+        <aside class="d-flex justify-content-center p-5">
+            <a type="button" href="inicio" class="btn-admin btn btn-md btn-primary pl-4 pr-4">Volver</a>
+        </aside>
+            {else}
     <div class="text-center">
     <h4 class="mb-4">Para dejar una opinión es necesario estar logeado</h4>
     <a class="btn btn-success" href="login">Iniciar sesión</a>
         <input type="hidden" name="id_destino" value={$destination->id_destino}>
         <input type="hidden" name="id_user" value=0>
         <input type="hidden" name="rol_user" value=0>
+        
     </div>
     {/if}
     </div>

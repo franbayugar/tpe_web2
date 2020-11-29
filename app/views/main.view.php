@@ -45,10 +45,11 @@ class MainView
         $smarty->display('templates/showMore.tpl');
     }
 
-    function showCommentsCSR($destination)
+    function showCommentsCSR($destination, $comprobationComment = null)
     {
         $smarty = new Smarty();
         $smarty->assign('destination', $destination);
+        $smarty->assign('comprobationComment', $comprobationComment);
         $smarty->display('templates/commentsList_csr.tpl');
     }
 

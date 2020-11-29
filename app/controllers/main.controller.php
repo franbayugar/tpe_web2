@@ -2,6 +2,8 @@
 include_once 'app/views/main.view.php';
 include_once 'app/models/travel.model.php';
 include_once 'app/models/category.model.php';
+include_once 'app/models/comment.model.php';
+
 include_once 'helpers/auth.helper.php';
 
 
@@ -12,6 +14,7 @@ class MainController
    private $view;
    private $travelModel;
    private $categoryModel;
+   private $commentModel;
 
    //instanciamos los objetos
    function __construct()
@@ -19,6 +22,7 @@ class MainController
       $this->view = new MainView();
       $this->travelModel = new TravelModel();
       $this->categoryModel = new CategoryModel();
+      $this->commentModel = new CommentModel();
       session_start();
    }
 
@@ -88,10 +92,21 @@ class MainController
    }
 
    //funcion para ver detalles 
-   function showMore($id)
+   function showMore($idDestino)
    {
+      $destination = $this->travelModel->getOne($idDestino);
 
-      $destination = $this->travelModel->getOne($id);
+      if (isset($_SESSION['ID_USER'])) {
+         $idUser = $_SESSION['ID_USER'];
+         $userComment = $this->commentModel->getCommentByIDUser($idUser, $idDestino);
+         if ($userComment) {
+            $this->view->showCommentsCSR($destination, 0);
+            die();
+         } else {
+            $this->view->showCommentsCSR($destination, 1);
+            die();
+         }
+      }
       if ($destination != null) {
          $this->view->showCommentsCSR($destination);
       } else {

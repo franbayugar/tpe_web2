@@ -40,7 +40,9 @@ const app = new Vue({
 document.addEventListener("DOMContentLoaded", () => {
     getComments();
     let id_user = document.querySelector('input[name="id_user"]').value;
-    if (id_user != 0) {
+    let comprobationComment = document.querySelector('input[name="comprobationComment"]').value;
+
+    if (id_user != 0 && comprobationComment == 1) {
         //si de esta manera compruebo que el usuario esta logeado
         document.querySelector(".form-comment").addEventListener('submit', function (e) {
             e.preventDefault();

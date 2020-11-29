@@ -19,7 +19,7 @@ class CommentModel
     }
 
     //obtener todos los comentarios
-    function getAll($parametros)
+    function getAll($parametros = null)
     {
         $sql = 'SELECT comentario.id, comentario.descripcion, comentario.puntuacion, usuario.username, destino.destino FROM `comentario` INNER JOIN `usuario` ON `id_usuario` = usuario.id INNER JOIN `destino` ON `id_destino` = destino.id';
         if (isset($parametros['order'])) {
@@ -31,6 +31,18 @@ class CommentModel
         //Enviar la consulta (prepare y execute)
         $query = $this->db->prepare($sql);
         $query->execute();
+
+        //Obtengo la respuesta con un fetchAll 
+        $comments = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de comentarios
+
+        //retorno lo que trae
+        return $comments;
+    }
+
+    function getCommentByIDUser($idUser, $idDestination)
+    {
+        $query = $this->db->prepare('SELECT * FROM comentario WHERE id_usuario = ? AND id_destino = ?');
+        $query->execute([$idUser, $idDestination]);
 
         //Obtengo la respuesta con un fetchAll 
         $comments = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de comentarios
