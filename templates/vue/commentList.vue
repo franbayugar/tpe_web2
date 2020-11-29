@@ -16,7 +16,15 @@
                 <tr v-for="comment in comments">
                     <td>{{comment.username}}</td>
                     <td>{{comment.descripcion}}</td>
-                    <td>{{comment.puntuacion}}</td>
+                    <td>
+                        <p class="clasificacion">
+                            <span v-if="comment.puntuacion ==1">★</span>
+                            <span v-if="comment.puntuacion ==2">★★</span>
+                            <span v-if="comment.puntuacion ==3">★★★</span>
+                            <span v-if="comment.puntuacion ==4">★★★★</span>
+                            <span v-if="comment.puntuacion ==5">★★★★★</span>
+                        </p>
+                    </td>
                     <td v-if="rol==1"><button v-on:click="remove(comment.id)" v-bind:id="comment.id"
                             class="btn btn-danger btn-delete btn-sm mb-1">Eliminar</button>
                     </td>
