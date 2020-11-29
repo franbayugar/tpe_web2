@@ -50,7 +50,7 @@
             </div>
             </div>
         </form> 
-        {else if {$comprobationComment} eq 0}
+        {else if {$comprobationComment} neq null}
         <div class="alert alert-info" v-else>
             <input type="hidden" name="id_destino" value={$destination->id_destino}>
             <input type="hidden" name="id_user" value={$smarty.session.ID_USER}>
