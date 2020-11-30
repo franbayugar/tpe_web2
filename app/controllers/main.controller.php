@@ -49,9 +49,13 @@ class MainController
 
    function paginationSearch($params)
    {
-      $minprice = $params[1];
-      $maxprice = $params[2];
-      $pagination = $params[3];
+      $pagination = $params[1];
+      $minprice = $_GET['min'];
+      $maxprice = $_GET['max'];
+
+      if (!isset($_GET['min']) || !isset($_GET['max'])) {
+         die();
+      }
 
       $destination = $this->travelModel->getByPaginationSearch($minprice, $maxprice, $pagination, 3);
       if ($destination != null) {

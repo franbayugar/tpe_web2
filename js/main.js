@@ -63,7 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 btnPagination = 0;
             }
             let price = priceFilter();
-            url = `pagination-search/${price}/${btnPagination}`;
+            console.log(btnPagination);
+            url = `pagination-search/${btnPagination}/${price}`;
         }
         else {
             url = `pagination/${btnPagination}`;
@@ -116,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let minPrice = document.querySelector('input[name="precio-min"]').value;
         let maxPrice = document.querySelector('input[name="precio-max"]').value;
 
-        return `${minPrice}/${maxPrice}`;
+        return `?min=${minPrice}&max=${maxPrice}`;
     }
 
 });

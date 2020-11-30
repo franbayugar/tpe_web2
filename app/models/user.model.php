@@ -65,6 +65,7 @@ class UserModel
         $query->execute([$username, $email, $password]);
     }
 
+    //actualizo permisos
     function updatePermission($permission, $id)
     {
         $query = $this->db->prepare('UPDATE usuario 

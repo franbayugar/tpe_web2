@@ -11,7 +11,7 @@ const app = new Vue({
             const comments = await fetch(`api/comentario/${id}`, {
                 "method": 'DELETE'
             });
-            this.getComments();
+            getComments();
         },
         getComments: async function () {
             try {
@@ -38,7 +38,7 @@ const app = new Vue({
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    getComments();
+    app.getComments();
     let id_user = document.querySelector('input[name="id_user"]').value;
     let comprobationComment = document.querySelector('input[name="comprobationComment"]').value;
 
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
             addComment();
         })
     };
-
+    /*
     async function getComments() {
         try {
             //guardo el rol del user
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(e);
         }
     }
-
+*/
     //agregar comentario
     async function addComment() {
         //obtengo los datos del input

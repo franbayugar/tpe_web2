@@ -35,7 +35,8 @@ class TravelModel
     function getByPagination($offset, $limit)
     {
         //Enviar la consulta (prepare y execute)
-        $query = $this->db->prepare('SELECT *, des.id as id_destino FROM `destino` des INNER JOIN `categoria` ON `id_categoria` = categoria.id ORDER BY `id_destino` LIMIT ' . $offset . ',' . $limit . ';');
+        $query = $this->db->prepare('SELECT *, des.id as id_destino FROM `destino` des INNER JOIN `categoria` ON `id_categoria` = categoria.id ORDER BY `id_destino` LIMIT :offset ,' . $limit . ';');
+        $query->bindParam(':offset', $offset, PDO::PARAM_INT);
         $query->execute();
 
         //Obtengo la respuesta con un fetchAll (porque son muchos)
@@ -47,8 +48,11 @@ class TravelModel
 
     function getByPaginationSearch($minprice, $maxprice, $offset, $limit)
     {
-        $query = $this->db->prepare('SELECT *, destino.id as id_destino FROM `destino` INNER JOIN `categoria` ON `id_categoria` = categoria.id WHERE destino.precio> ? AND destino.precio < ? LIMIT ' . $offset . ',' . $limit . ';');
-        $query->execute([$minprice, $maxprice]);
+        $query = $this->db->prepare('SELECT *, destino.id as id_destino FROM `destino` INNER JOIN `categoria` ON `id_categoria` = categoria.id WHERE destino.precio > :minprice AND destino.precio < :maxprice LIMIT :offset ,' . $limit . ';');
+        $query->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $query->bindParam(':minprice', $minprice, PDO::PARAM_INT);
+        $query->bindParam(':maxprice', $maxprice, PDO::PARAM_INT);
+        $query->execute();
 
         //Obtengo la respuesta con un fetchAll (porque son muchos)
         $destination = $query->fetchAll(PDO::FETCH_OBJ); // arreglo de destinos

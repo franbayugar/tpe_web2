@@ -4,12 +4,13 @@ require_once('libs/smarty/libs/Smarty.class.php');
 class MainView
 {
     //funcion para mostrar el home
-    function showHome($destination, $category, $buttonsPagination)
+    function showHome($destination, $category, $buttonsPagination, $filterPrice = null)
     {
         $smarty = new Smarty();
 
         $smarty->assign('destination', $destination);
         $smarty->assign('category', $category);
+        $smarty->assign('filterPrice', $filterPrice);
         $smarty->assign('checkId', '0');
         $smarty->assign('buttonsPagination', $buttonsPagination);
 
